@@ -1,4 +1,5 @@
 import 'package:fake_store_prog/styles/elevated_button_styles.dart';
+import 'package:fake_store_prog/styles/text_styles.dart';
 import 'package:flutter/material.dart';
 
 class CustomElevatedButton extends SizedBox {
@@ -12,7 +13,7 @@ class CustomElevatedButton extends SizedBox {
             child: ElevatedButton(
               style: blackElevatedButtonStyle,
               onPressed: onPressed,
-              child: Text(text, style: TextStyle(color: Colors.white),),
+              child: Text(text, style: buttonTextStyle,),
             ),
           ),
         );

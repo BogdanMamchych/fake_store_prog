@@ -1,3 +1,5 @@
+import 'package:fake_store_prog/styles/text_styles.dart';
+import 'package:fake_store_prog/ui/login_page.dart';
 import 'package:fake_store_prog/widgets/custom_elevated_button.dart';
 import 'package:flutter/material.dart';
 
@@ -28,20 +30,17 @@ class WelcomePage extends StatelessWidget {
                 const SizedBox(height: 10),
                 const Text(
                   'Fake Store',
-                  style: TextStyle(
-                    fontSize: 28,
-                    fontWeight: FontWeight.w600,
-                    color: Color(0xFF252425),
-                  ),
+                  style: mainTextStyle
                 ),
                 const SizedBox(height: 20),
                 Padding(
                   padding: const EdgeInsets.symmetric(horizontal: 24.0),
                   child: SizedBox(
+                    width: 342,
                     height: 48,
                     child: CustomElevatedButton(
                       text: 'Get Started',
-                      onPressed: () {},
+                      onPressed: () {Navigator.push(context, MaterialPageRoute(builder: (context) => LoginPage()));},
                     ),
                   ),
                 ),
