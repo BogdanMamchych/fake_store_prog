@@ -14,6 +14,13 @@ const TextStyle buttonTextStyle = TextStyle(
   color: Colors.white,
 );
 
+const TextStyle labelTextStyle = TextStyle(
+  fontFamily: 'Urbanist',
+  fontWeight: FontWeight.w600,
+  fontSize: 12,
+  color: Color(0xFF6A707C),
+);
+
 const TextStyle inputTextStyle = TextStyle(
   fontFamily: 'Urbanist',
   fontWeight: FontWeight.w500,

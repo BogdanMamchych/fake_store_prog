@@ -13,6 +13,8 @@ import 'package:fake_store_prog/core/api/api_client.dart' as _i58;
 import 'package:fake_store_prog/core/local/token_storage.dart' as _i1026;
 import 'package:fake_store_prog/core/local/user_preferences.dart' as _i540;
 import 'package:fake_store_prog/features/auth/bloc/auth_bloc.dart' as _i263;
+import 'package:fake_store_prog/features/product_list/bloc/product_list_bloc.dart'
+    as _i125;
 import 'package:get_it/get_it.dart' as _i174;
 import 'package:injectable/injectable.dart' as _i526;
 
@@ -26,6 +28,9 @@ extension GetItInjectableX on _i174.GetIt {
     gh.lazySingleton<_i58.ApiClient>(() => _i58.ApiClient());
     gh.lazySingleton<_i1026.TokenStorage>(() => _i1026.TokenStorage());
     gh.lazySingleton<_i540.UserPreferences>(() => _i540.UserPreferences());
+    gh.factory<_i125.ProductListBloc>(
+      () => _i125.ProductListBloc(apiClient: gh<_i58.ApiClient>()),
+    );
     gh.factory<_i263.AuthBloc>(
       () => _i263.AuthBloc(
         apiClient: gh<_i58.ApiClient>(),

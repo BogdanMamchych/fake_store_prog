@@ -6,12 +6,11 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
-  await configureCoreDependencies(); // ваша інжекція
+  await configureCoreDependencies();
   runApp(
     MultiBlocProvider(
       providers: [
         BlocProvider(create: (_) => getIt<AuthBloc>()),
-        // інші BLoC'и
       ],
       child: MainApp(),
     ),
