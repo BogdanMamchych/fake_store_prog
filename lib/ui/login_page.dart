@@ -143,8 +143,9 @@ class _LoginPageState extends State<LoginPage> {
                                 setState(() => _obscure = !_obscure),
                           ),
                           validator: (v) {
-                            if (v == null || v.isEmpty)
+                            if (v == null || v.isEmpty) {
                               return 'Please enter password';
+                            }
                             return null;
                           },
                         ),

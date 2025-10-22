@@ -1,7 +1,10 @@
 import 'package:fake_store_prog/core/local/user_preferences.dart';
 import 'package:fake_store_prog/features/product_list/bloc/product_list_bloc.dart';
 import 'package:fake_store_prog/features/product_list/bloc/product_list_state.dart';
+import 'package:fake_store_prog/features/product_viewer/bloc/product_viewer_bloc.dart';
+import 'package:fake_store_prog/features/product_viewer/bloc/product_viewer_event.dart';
 import 'package:fake_store_prog/styles/text_styles.dart';
+import 'package:fake_store_prog/ui/product_page.dart';
 import 'package:flutter/material.dart';
 import 'package:fake_store_prog/features/product_list/models/product.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -187,7 +190,17 @@ class ProductCard extends StatelessWidget {
                       ),
 
                       IconButton(
-                        onPressed: () {},
+                        onPressed: () {
+                          Navigator.push(
+                            context,
+                            MaterialPageRoute(
+                              builder: (context) => BlocProvider<ProductViewerBloc>(
+                                create: (ctx) => GetIt.I<ProductViewerBloc>()..add(GetProductEvent(productId: product.id)),
+                                child: ProductPage(productId: product.id),
+                              ),
+                            ),
+                          );
+                        },
                         icon: const Icon(Icons.favorite_border),
                         constraints: const BoxConstraints.tightFor(width: 40, height: 40),
                       ),

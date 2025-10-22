@@ -38,4 +38,8 @@ class ApiClient {
     return await dio.get(ApiRoutes.user(id));
   }
 
+  Future<Response> getProductById(int id) async {
+    return await dio.get(ApiRoutes.product(id));
+  }
+
 }
