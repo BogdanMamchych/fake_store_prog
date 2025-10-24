@@ -1,6 +1,6 @@
-import 'package:fake_store_prog/styles/text_styles.dart';
-import 'package:fake_store_prog/ui/login_page.dart';
-import 'package:fake_store_prog/widgets/custom_elevated_button.dart';
+import 'package:fake_store_prog/core/styles/text_styles.dart';
+import 'package:fake_store_prog/features/auth/presentation/ui/login_page.dart';
+import 'package:fake_store_prog/core/widgets/custom_elevated_button.dart';
 import 'package:flutter/material.dart';
 
 class WelcomePage extends StatelessWidget {

@@ -1,5 +1,5 @@
 import 'package:fake_store_prog/core/api/api_client.dart';
-import 'package:fake_store_prog/features/product_list/models/product.dart';
+import 'package:fake_store_prog/features/product_list/domain/entities/product.dart';
 import 'package:fake_store_prog/features/product_viewer/bloc/product_viewer_event.dart';
 import 'package:fake_store_prog/features/product_viewer/bloc/product_viewer_state.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';

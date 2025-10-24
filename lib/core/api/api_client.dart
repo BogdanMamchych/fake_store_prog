@@ -35,11 +35,41 @@ class ApiClient {
   }
 
   Future<Response> getUserById(int id) async {
-    return await dio.get(ApiRoutes.user(id));
+    return dio.get(ApiRoutes.user(id));
   }
 
   Future<Response> getProductById(int id) async {
-    return await dio.get(ApiRoutes.product(id));
+    return dio.get(ApiRoutes.product(id));
+  }
+
+  Future<Response<T>> get<T>(
+    String path, {
+    Map<String, dynamic>? queryParameters,
+    Options? options,
+    CancelToken? cancelToken,
+  }) async {
+    return dio.get<T>(
+      path,
+      queryParameters: queryParameters,
+      options: options,
+      cancelToken: cancelToken,
+    );
+  }
+
+  Future<Response<T>> post<T>(
+    String path, {
+    dynamic data,
+    Map<String, dynamic>? queryParameters,
+    Options? options,
+    CancelToken? cancelToken,
+  }) async {
+    return dio.post<T>(
+      path,
+      data: data,
+      queryParameters: queryParameters,
+      options: options,
+      cancelToken: cancelToken,
+    );
   }
 
 }

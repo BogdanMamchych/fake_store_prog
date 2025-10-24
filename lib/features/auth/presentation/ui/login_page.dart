@@ -1,13 +1,13 @@
-import 'package:fake_store_prog/features/product_list/bloc/product_list_bloc.dart';
-import 'package:fake_store_prog/features/product_list/bloc/product_list_event.dart';
-import 'package:fake_store_prog/styles/text_styles.dart';
-import 'package:fake_store_prog/ui/home_page.dart';
-import 'package:fake_store_prog/widgets/custom_elevated_button.dart';
+import 'package:fake_store_prog/features/product_list/presentation/bloc/product_list_bloc.dart';
+import 'package:fake_store_prog/features/product_list/presentation/bloc/product_list_event.dart';
+import 'package:fake_store_prog/core/styles/text_styles.dart';
+import 'package:fake_store_prog/features/product_list/presentation/ui/home_page.dart';
+import 'package:fake_store_prog/core/widgets/custom_elevated_button.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:fake_store_prog/features/auth/bloc/auth_bloc.dart';
-import 'package:fake_store_prog/features/auth/bloc/auth_event.dart';
-import 'package:fake_store_prog/features/auth/bloc/auth_state.dart';
+import 'package:fake_store_prog/features/auth/presentation/bloc/auth_bloc.dart';
+import 'package:fake_store_prog/features/auth/presentation/bloc/auth_event.dart';
+import 'package:fake_store_prog/features/auth/presentation/bloc/auth_state.dart';
 import 'package:get_it/get_it.dart';
 
 class LoginPage extends StatefulWidget {

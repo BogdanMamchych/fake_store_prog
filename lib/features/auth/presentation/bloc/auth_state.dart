@@ -13,12 +13,7 @@ class AuthInitial extends AuthState {}
 class AuthLoading extends AuthState {}
 
 class AuthAuthenticated extends AuthState {
-  final String token;
 
-  const AuthAuthenticated({required this.token});
-
-  @override
-  List<Object> get props => [token];
 }
 
 class AuthError extends AuthState {

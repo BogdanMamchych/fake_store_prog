@@ -1,5 +1,5 @@
 import 'package:equatable/equatable.dart';
-import 'package:fake_store_prog/features/product_list/models/product.dart';
+import 'package:fake_store_prog/features/product_list/domain/entities/product.dart';
 
 class ProductViewerState extends Equatable{
   @override
