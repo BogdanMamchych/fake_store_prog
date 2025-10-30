@@ -1,5 +1,5 @@
 import 'package:fake_store_prog/core/api/api_client.dart';
-import 'package:fake_store_prog/features/product_list/domain/entities/product.dart';
+import 'package:fake_store_prog/core/models/item.dart';
 import 'package:fake_store_prog/features/product_viewer/bloc/product_viewer_event.dart';
 import 'package:fake_store_prog/features/product_viewer/bloc/product_viewer_state.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -24,7 +24,7 @@ class ProductViewerBloc extends Bloc<ProductViewerEvent, ProductViewerState> {
       final response = await _apiClient.getProductById(
         event.productId,
       );
-      final Product productData = Product.fromJson(
+      final Item productData = Item.fromJson(
         response.data as Map<String, dynamic>,
       );
       emit(ProductViewerLoaded(productData: productData));

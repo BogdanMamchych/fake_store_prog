@@ -1,5 +1,5 @@
 import 'package:equatable/equatable.dart';
-import 'package:fake_store_prog/features/product_list/domain/entities/product.dart';
+import 'package:fake_store_prog/core/models/item.dart';
 
 abstract class ProductViewerEvent extends Equatable {
   @override
@@ -16,7 +16,7 @@ class GetProductEvent extends ProductViewerEvent {
 }
 
 class AddToCart extends ProductViewerEvent {
-  final Product product;
+  final Item product;
 
   AddToCart({required this.product});
 

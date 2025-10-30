@@ -1,7 +1,7 @@
 import 'package:fake_store_prog/core/widgets/bottom_navigation_bar.dart';
 import 'package:fake_store_prog/features/product_list/presentation/bloc/product_list_bloc.dart';
 import 'package:fake_store_prog/features/product_list/presentation/bloc/product_list_state.dart';
-import 'package:fake_store_prog/features/product_list/widgets/header.dart';
+import 'package:fake_store_prog/core/widgets/header.dart';
 import 'package:fake_store_prog/features/product_list/widgets/product_card.dart';
 import 'package:fake_store_prog/core/styles/text_styles.dart';
 import 'package:flutter/material.dart' hide BottomNavigationBar;
@@ -21,25 +21,24 @@ class HomePage extends StatelessWidget {
         }
       },
       child: Scaffold(
-        bottomNavigationBar: const BottomNavigationBar(),
+        bottomNavigationBar: const BottomNavBar(),
         body: SafeArea(
           child: BlocBuilder<ProductListBloc, ProductListState>(
             builder: (context, state) {
               if (state is FetchLoading) {
                 return const Center(child: CircularProgressIndicator());
               } else if (state is OpenProductListSuccess) {
-                // беремо username і products з одного стейту
                 final username = state.user.name;
                 final products = state.products;
 
                 return Column(
                   children: [
                     SizedBox(
-                      height: 183,
+                      height: 148,
                       width: double.infinity,
                       child: Padding(
                         padding: const EdgeInsets.symmetric(horizontal: 24.0),
-                        child: Header(username: username),
+                        child: Header(headerText: "Welcome", username: username),
                       ),
                     ),
 
@@ -49,9 +48,7 @@ class HomePage extends StatelessWidget {
                         child: Column(
                           crossAxisAlignment: CrossAxisAlignment.start,
                           children: [
-                            const SizedBox(height: 8),
                             Text('Fake Store', style: mainTextStyle),
-                            const SizedBox(height: 16),
 
                             Expanded(
                               child: Builder(

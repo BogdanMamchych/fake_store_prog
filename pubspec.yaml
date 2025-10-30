@@ -19,6 +19,7 @@ dependencies:
   jwt_decoder: ^2.0.1
   shared_preferences: ^2.5.3
   go_router: ^16.2.5
+  synchronized: ^3.4.0
 
 dev_dependencies:
   flutter_test:

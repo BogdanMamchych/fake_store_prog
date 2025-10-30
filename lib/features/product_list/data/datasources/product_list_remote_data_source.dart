@@ -4,7 +4,7 @@ import 'package:dio/dio.dart';
 import 'package:fake_store_prog/core/api/api_client.dart';
 import 'package:fake_store_prog/core/local/user_preferences.dart';
 import 'package:fake_store_prog/core/models/user.dart';
-import 'package:fake_store_prog/features/product_list/domain/entities/product.dart';
+import 'package:fake_store_prog/core/models/item.dart';
 import 'package:injectable/injectable.dart';
 import '../../../../core/local/exceptions.dart';
 
@@ -14,14 +14,14 @@ class ProductListRemoteDataSource {
   final UserPreferences _userPreferences;
   ProductListRemoteDataSource(this._apiClient, this._userPreferences);
 
-  Future<List<Product>> fetchProducts() async {
+  Future<List<Item>> fetchProducts() async {
     try {
       final response = await _apiClient.fetchProducts();
 
       if (response.statusCode == 200) {
         final List<dynamic> data = response.data;
         try {
-          final products = data.map((json) => Product.fromJson(json)).toList();
+          final products = data.map((json) => Item.fromJson(json)).toList();
           return products;
         } on FormatException catch (fe) {
           throw ParsingException(fe.message);

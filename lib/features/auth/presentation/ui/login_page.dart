@@ -98,7 +98,6 @@ class _LoginPageState extends State<LoginPage> {
 
                   const SizedBox(height: 48),
 
-                  // Title
                   Text(
                     'Welcome back! Glad to see you, Again!',
                     style: mainTextStyle,

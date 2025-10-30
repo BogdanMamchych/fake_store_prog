@@ -1,10 +1,10 @@
 // lib/pages/product_page.dart
 
-import 'package:fake_store_prog/features/product_list/domain/entities/product.dart';
+import 'package:fake_store_prog/core/models/item.dart';
 import 'package:flutter/material.dart';
 
 class InfoCard extends StatelessWidget {
-  final Product product;
+  final Item product;
   const InfoCard({Key? key, required this.product}) : super(key: key);
 
   @override

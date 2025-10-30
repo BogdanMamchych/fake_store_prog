@@ -1,4 +1,4 @@
-import 'package:fake_store_prog/features/product_list/domain/entities/product.dart';
+import 'package:fake_store_prog/core/models/item.dart';
 import 'package:fake_store_prog/features/product_viewer/bloc/product_viewer_bloc.dart';
 import 'package:fake_store_prog/features/product_viewer/bloc/product_viewer_event.dart';
 import 'package:fake_store_prog/features/product_viewer/ui/product_page.dart';
@@ -8,7 +8,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:get_it/get_it.dart';
 
 class ProductCard extends StatelessWidget {
-  final Product product;
+  final Item product;
   const ProductCard({super.key, required this.product});
 
   @override

@@ -42,34 +42,8 @@ class ApiClient {
     return dio.get(ApiRoutes.product(id));
   }
 
-  Future<Response<T>> get<T>(
-    String path, {
-    Map<String, dynamic>? queryParameters,
-    Options? options,
-    CancelToken? cancelToken,
-  }) async {
-    return dio.get<T>(
-      path,
-      queryParameters: queryParameters,
-      options: options,
-      cancelToken: cancelToken,
-    );
-  }
-
-  Future<Response<T>> post<T>(
-    String path, {
-    dynamic data,
-    Map<String, dynamic>? queryParameters,
-    Options? options,
-    CancelToken? cancelToken,
-  }) async {
-    return dio.post<T>(
-      path,
-      data: data,
-      queryParameters: queryParameters,
-      options: options,
-      cancelToken: cancelToken,
-    );
+  Future<Response> postNewCart(Map<String, dynamic> cartData) async {
+    return dio.post(ApiRoutes.carts, data: cartData);
   }
 
 }

@@ -8,6 +8,6 @@ class GetUserUseCase {
   GetUserUseCase(this.repository);
 
   Future<User> call() async {
-    return repository.getUserFromSharedPreferences();
+    return repository.getCurrentUser();
   }
 }

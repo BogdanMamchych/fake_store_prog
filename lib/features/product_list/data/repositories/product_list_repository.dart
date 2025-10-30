@@ -2,7 +2,7 @@ import 'package:fake_store_prog/core/local/exceptions.dart';
 import 'package:fake_store_prog/core/local/user_preferences.dart';
 import 'package:fake_store_prog/core/models/user.dart';
 import 'package:fake_store_prog/features/product_list/data/datasources/product_list_remote_data_source.dart';
-import 'package:fake_store_prog/features/product_list/domain/entities/product.dart';
+import 'package:fake_store_prog/core/models/item.dart';
 import 'package:fake_store_prog/features/product_list/domain/repositories/i_product_list_repository.dart';
 import 'package:injectable/injectable.dart';
 
@@ -17,7 +17,7 @@ class ProductListRepository implements IProductListRepository {
   });
 
   @override
-  Future<List<Product>> fetchProductList() async {
+  Future<List<Item>> fetchProductList() async {
     try {
       return await remoteDataSource.fetchProducts();
     } on NetworkException {
@@ -36,7 +36,7 @@ class ProductListRepository implements IProductListRepository {
   }
 
   @override
-  Future<User> getUserFromSharedPreferences() async {
+  Future<User> getCurrentUser() async {
     try {
       final user = await remoteDataSource.user;
       if (user != null) return user;

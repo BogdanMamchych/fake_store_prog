@@ -1,4 +1,4 @@
-class Product {
+class Item {
   final int id;
   final String title;
   final double price;
@@ -8,7 +8,7 @@ class Product {
   final double rating;
   final int ratingCount;
 
-  Product({
+  Item({
     required this.id,
     required this.title,
     required this.price,
@@ -19,10 +19,10 @@ class Product {
     required this.ratingCount,
   });    
 
-  factory Product.fromJson(Map<String, dynamic> json) {
+  factory Item.fromJson(Map<String, dynamic> json) {
     final ratingObj = json['rating'] as Map<String, dynamic>?;
 
-    return Product(
+    return Item(
       id: json['id'],
       title: json['title'],
       price: (json['price'] as num).toDouble(),
