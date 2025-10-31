@@ -59,10 +59,10 @@ import 'package:fake_store_prog/features/item_list/domain/usecases/get_user_use_
     as _i293;
 import 'package:fake_store_prog/features/item_list/presentation/bloc/item_list_bloc.dart'
     as _i217;
-import 'package:fake_store_prog/features/product_viewer/domain/usecases/add_item_use_case.dart'
-    as _i407;
-import 'package:fake_store_prog/features/product_viewer/presentation/bloc/product_viewer_bloc.dart'
-    as _i1035;
+import 'package:fake_store_prog/features/item_viewer/domain/usecases/add_item_use_case.dart'
+    as _i111;
+import 'package:fake_store_prog/features/item_viewer/presentation/bloc/item_viewer_bloc.dart'
+    as _i554;
 import 'package:get_it/get_it.dart' as _i174;
 import 'package:injectable/injectable.dart' as _i526;
 
@@ -150,8 +150,8 @@ extension GetItInjectableX on _i174.GetIt {
       () =>
           _i205.RemoveItemUseCase(cartRepository: gh<_i591.ICartRepository>()),
     );
-    gh.factory<_i407.AddItemUseCase>(
-      () => _i407.AddItemUseCase(cartRepository: gh<_i591.ICartRepository>()),
+    gh.factory<_i111.AddItemUseCase>(
+      () => _i111.AddItemUseCase(cartRepository: gh<_i591.ICartRepository>()),
     );
     gh.factory<_i279.ConfirmCartUseCase>(
       () => _i279.ConfirmCartUseCase(
@@ -161,10 +161,6 @@ extension GetItInjectableX on _i174.GetIt {
     );
     gh.factory<_i651.AuthBloc>(
       () => _i651.AuthBloc(loginUseCase: gh<_i172.LoginUseCase>()),
-    );
-    gh.factory<_i1035.ProductViewerBloc>(
-      () =>
-          _i1035.ProductViewerBloc(addItemUseCase: gh<_i407.AddItemUseCase>()),
     );
     gh.factory<_i53.CartBloc>(
       () => _i53.CartBloc(
@@ -176,6 +172,9 @@ extension GetItInjectableX on _i174.GetIt {
         removeItemUseCase: gh<_i205.RemoveItemUseCase>(),
         confirmCartUseCase: gh<_i279.ConfirmCartUseCase>(),
       ),
+    );
+    gh.factory<_i554.ItemViewerBloc>(
+      () => _i554.ItemViewerBloc(addItemUseCase: gh<_i111.AddItemUseCase>()),
     );
     return this;
   }

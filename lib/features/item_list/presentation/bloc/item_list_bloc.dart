@@ -16,18 +16,18 @@ class ItemListBloc extends Bloc<ItemListEvent, ItemListState> {
   }) : _fetchItemsUseCase = fetchProductsUseCase,
        _getUserUseCase = getUserUseCase,
        super(ProductListStateInitial()) {
-    on<FetchProductsEvent>(_onProductEvent);
+    on<FetchItemsEvent>(_onProductEvent);
   }
 
   Future<void> _onProductEvent(
-    FetchProductsEvent event,
+    FetchItemsEvent event,
     Emitter<ItemListState> emit,
   ) async {
     await _onFetchProducts(event, emit);
   }
 
   Future<void> _onFetchProducts(
-    FetchProductsEvent event,
+    FetchItemsEvent event,
     Emitter<ItemListState> emit,
   ) async {
     try {

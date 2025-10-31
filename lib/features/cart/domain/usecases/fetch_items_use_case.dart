@@ -12,7 +12,7 @@ class FetchItemsUseCase {
     final cartItems = await cartRepository.getCartItems();
     if (cartItems.isEmpty) return [];
 
-    final items = await cartRepository.getProductsForCartItems(cartItems);
+    final items = await cartRepository.getItemsForCartItems(cartItems);
     return items;
   }
 }

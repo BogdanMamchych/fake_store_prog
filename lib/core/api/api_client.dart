@@ -21,8 +21,8 @@ class ApiClient {
             ),
           );
 
-  Future<Response> fetchProducts({Map<String, dynamic>? queryParameters}) async {
-    return await dio.get(ApiRoutes.products, queryParameters: queryParameters);
+  Future<Response> fetchItems({Map<String, dynamic>? queryParameters}) async {
+    return await dio.get(ApiRoutes.items, queryParameters: queryParameters);
   }
 
   Future<Response> login(String login, String password) async {
@@ -38,8 +38,8 @@ class ApiClient {
     return dio.get(ApiRoutes.user(id));
   }
 
-  Future<Response> getProductById(int id) async {
-    return dio.get(ApiRoutes.product(id));
+  Future<Response> getItemById(int id) async {
+    return dio.get(ApiRoutes.item(id));
   }
 
   Future<Response> postNewCart(Map<String, dynamic> cartData) async {

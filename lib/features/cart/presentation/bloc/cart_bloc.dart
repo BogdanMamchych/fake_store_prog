@@ -51,7 +51,7 @@ class CartBloc extends Bloc<CartEvent, CartState> {
     final Map<int, Item> productById = {for (var p in products) p.id: p};
     double total = 0.0;
     for (final ci in cartItems) {
-      final prod = productById[ci.productId];
+      final prod = productById[ci.itemId];
       if (prod != null) total += prod.price * ci.quantity;
     }
     return total;
@@ -59,7 +59,7 @@ class CartBloc extends Bloc<CartEvent, CartState> {
 
   List<CartItem> _updateCartItemQuantity(List<CartItem> cartItems, int productId, int delta) {
     return cartItems.map((ci) {
-      if (ci.productId != productId) return ci;
+      if (ci.itemId != productId) return ci;
       final newQty = (ci.quantity + delta);
       return ci.copyWith(quantity: newQty);
     }).where((ci) => ci.quantity > 0).toList();
@@ -110,9 +110,9 @@ class CartBloc extends Bloc<CartEvent, CartState> {
     if (current is! CartLoaded) return;
 
     final prev = current;
-    final productId = event.cartItem.productId;
+    final productId = event.cartItem.itemId;
 
-    final updatedCartItems = prev.cartItems.where((ci) => ci.productId != productId).toList();
+    final updatedCartItems = prev.cartItems.where((ci) => ci.itemId != productId).toList();
     final updatedItems = prev.items.where((it) => it.id != productId).toList();
     final updatedTotal = _calculateTotal(updatedCartItems, updatedItems);
     final newSyncing = Set<int>.from(prev.syncingItemIds)..add(productId);
@@ -170,7 +170,7 @@ class CartBloc extends Bloc<CartEvent, CartState> {
     if (current is! CartLoaded) return;
 
     final prev = current;
-    final productId = event.cartItem.productId;
+    final productId = event.cartItem.itemId;
 
     final updatedCartItems = _updateCartItemQuantity(prev.cartItems, productId, 1);
     final updatedTotal = _calculateTotal(updatedCartItems, prev.items);
@@ -225,7 +225,7 @@ class CartBloc extends Bloc<CartEvent, CartState> {
     if (current is! CartLoaded) return;
 
     final prev = current;
-    final productId = event.cartItem.productId;
+    final productId = event.cartItem.itemId;
 
     final delta = -1;
     final updatedCartItems = _updateCartItemQuantity(prev.cartItems, productId, delta);

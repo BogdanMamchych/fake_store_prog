@@ -1,26 +1,26 @@
 import 'package:fake_store_prog/core/models/item.dart';
 import 'package:fake_store_prog/core/usecases/add_to_cart_use_case.dart';
-import 'package:fake_store_prog/features/product_viewer/presentation/bloc/product_viewer_bloc.dart';
-import 'package:fake_store_prog/features/product_viewer/presentation/bloc/product_viewer_state.dart';
-import 'package:fake_store_prog/features/product_viewer/widgets/bottom_bar.dart';
-import 'package:fake_store_prog/features/product_viewer/widgets/header.dart';
-import 'package:fake_store_prog/features/product_viewer/widgets/info_card.dart';
-import 'package:fake_store_prog/features/product_viewer/widgets/product_image.dart';
+import 'package:fake_store_prog/features/item_viewer/presentation/bloc/item_viewer_bloc.dart';
+import 'package:fake_store_prog/features/item_viewer/presentation/bloc/item_viewer_state.dart';
+import 'package:fake_store_prog/features/item_viewer/widgets/bottom_bar.dart';
+import 'package:fake_store_prog/features/item_viewer/widgets/header.dart';
+import 'package:fake_store_prog/features/item_viewer/widgets/info_card.dart';
+import 'package:fake_store_prog/features/item_viewer/widgets/product_image.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:fake_store_prog/core/di/injection.dart';
 
-class ProductPage extends StatelessWidget {
+class ItemPage extends StatelessWidget {
   final Item item;
-  const ProductPage({super.key, required this.item});
+  const ItemPage({super.key, required this.item});
 
   @override
   Widget build(BuildContext context) {
     final backgroundColor = const Color(0xFFF8F7FA);
 
-    return BlocListener<ProductViewerBloc, ProductViewerState>(
+    return BlocListener<ItemViewerBloc, ItemViewerState>(
       listener: (context, state) {
-        if (state is ProductViewerError) {
+        if (state is ItemViewerError) {
           ScaffoldMessenger.of(
             context,
           ).showSnackBar(SnackBar(content: Text(state.message)));
@@ -34,9 +34,9 @@ class ProductPage extends StatelessWidget {
             children: [
               Header(onBack: () => Navigator.pop(context), isFavorite: false),
 
-              ProductImage(imageUrl: item.imageURL),
+              ItemImage(imageUrl: item.imageURL),
 
-              InfoCard(product: item),
+              InfoCard(item: item),
 
               BottomBar(
                 price: item.price,

@@ -1,3 +1,3 @@
 abstract class ItemListEvent {}
 
-class FetchProductsEvent extends ItemListEvent {}
+class FetchItemsEvent extends ItemListEvent {}

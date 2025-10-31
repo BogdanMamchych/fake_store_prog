@@ -1,22 +1,22 @@
 class CartItem {
-  final int productId;
+  final int itemId;
   int quantity;
 
   CartItem({
-    required this.productId,
+    required this.itemId,
     this.quantity = 1,
   });
 
   factory CartItem.fromJson(Map<String, dynamic> json) {
     return CartItem(
-      productId: json['productId'],
+      itemId: json['productId'],
       quantity: json['quantity'],
     );
   }
 
   Map<String, dynamic> toJson() {
     return {
-      'productId': productId,
+      'productId': itemId,
       'quantity': quantity,
     };
   }
@@ -26,7 +26,7 @@ class CartItem {
     int? quantity,
   }) {
     return CartItem(
-      productId: productId ?? this.productId,
+      itemId: productId ?? this.itemId,
       quantity: quantity ?? this.quantity,
     );
   }

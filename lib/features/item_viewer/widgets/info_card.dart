@@ -1,11 +1,9 @@
-// lib/pages/product_page.dart
-
 import 'package:fake_store_prog/core/models/item.dart';
 import 'package:flutter/material.dart';
 
 class InfoCard extends StatelessWidget {
-  final Item product;
-  const InfoCard({Key? key, required this.product}) : super(key: key);
+  final Item item;
+  const InfoCard({Key? key, required this.item}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -19,7 +17,7 @@ class InfoCard extends StatelessWidget {
           mainAxisSize: MainAxisSize.min,
           children: [
             Text(
-              product.title,
+              item.title,
               style: const TextStyle(
                 fontFamily: 'Urbanist',
                 fontWeight: FontWeight.w600,
@@ -29,7 +27,7 @@ class InfoCard extends StatelessWidget {
             ),
             const SizedBox(height: 6),
             Text(
-              product.category,
+              item.category,
               style: const TextStyle(
                 fontFamily: 'Urbanist',
                 fontWeight: FontWeight.w600,
@@ -43,7 +41,7 @@ class InfoCard extends StatelessWidget {
                 const Icon(Icons.star, size: 14, color: Colors.black),
                 const SizedBox(width: 6),
                 Text(
-                  product.rating.toStringAsFixed(2),
+                  item.rating.toStringAsFixed(2),
                   style: const TextStyle(
                     fontFamily: 'Urbanist',
                     fontWeight: FontWeight.w600,
@@ -53,7 +51,7 @@ class InfoCard extends StatelessWidget {
                 ),
                 const SizedBox(width: 8),
                 Text(
-                  '${product.ratingCount} Reviews',
+                  '${item.ratingCount} Reviews',
                   style: const TextStyle(
                     fontFamily: 'Urbanist',
                     fontWeight: FontWeight.w600,

@@ -1,5 +1,3 @@
-// lib/pages/product_page.dart
-
 import 'package:flutter/material.dart';
 
 class Header extends StatelessWidget {

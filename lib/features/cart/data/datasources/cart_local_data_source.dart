@@ -58,7 +58,7 @@ class CartLocalDataSource {
     await _lock.synchronized(() async {
       try {
         final list = _userPreferences.getCartList();
-        list.removeWhere((cartItem) => cartItem.productId == item.productId);
+        list.removeWhere((cartItem) => cartItem.itemId == item.itemId);
         await _userPreferences.setCartList(list);
       } on Exception catch (e) {
         throw StorageException(e.toString());
@@ -71,10 +71,10 @@ class CartLocalDataSource {
       try {
         final List<CartItem> list = _userPreferences.getCartList();
 
-        final idx = list.indexWhere((ci) => ci.productId == item.productId);
+        final idx = list.indexWhere((ci) => ci.itemId == item.itemId);
         list[idx].quantity = list[idx].quantity + 1;
         if (idx == -1) {
-          throw ItemNotFoundException('Item ${item.productId} not found');
+          throw ItemNotFoundException('Item ${item.itemId} not found');
         }
         await _userPreferences.setCartList(list);
       } on FormatException catch (fe) {
@@ -89,8 +89,8 @@ class CartLocalDataSource {
     await _lock.synchronized(() async {
       try {
         final list = _userPreferences.getCartList();
-        final idx = list.indexWhere((ci) => ci.productId == item.productId);
-        if (idx == -1) throw ItemNotFoundException('Item ${item.productId} not found');
+        final idx = list.indexWhere((ci) => ci.itemId == item.itemId);
+        if (idx == -1) throw ItemNotFoundException('Item ${item.itemId} not found');
 
         if (list[idx].quantity <= 1) {
           list.removeAt(idx);

@@ -65,7 +65,7 @@ class CartPage extends StatelessWidget {
                                 CartItem? cartItem;
                                 try {
                                   cartItem = cartItems.firstWhere(
-                                    (c) => c.productId == item.id,
+                                    (c) => c.itemId == item.id,
                                   );
                                 } catch (_) {
                                   cartItem = null;

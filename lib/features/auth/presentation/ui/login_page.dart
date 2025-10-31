@@ -59,7 +59,7 @@ class _LoginPageState extends State<LoginPage> {
             context,
             MaterialPageRoute(
               builder: (context) => BlocProvider<ItemListBloc>(
-                create: (ctx) => GetIt.I<ItemListBloc>()..add(FetchProductsEvent()),
+                create: (ctx) => GetIt.I<ItemListBloc>()..add(FetchItemsEvent()),
                 child: const HomePage(),
               ),
             ),

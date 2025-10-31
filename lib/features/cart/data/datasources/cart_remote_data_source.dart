@@ -10,9 +10,9 @@ class CartRemoteDataSource {
 
   CartRemoteDataSource(this._apiClient);
 
-  Future<Item> getProductById(int id) async {
+  Future<Item> getItemById(int id) async {
     try {
-      final response = await _apiClient.getProductById(id);
+      final response = await _apiClient.getItemById(id);
 
       final status = response.statusCode ?? 0;
       if (status == 200 || status == 201) {

@@ -1,6 +1,6 @@
 import 'package:fake_store_prog/core/models/item.dart';
-import 'package:fake_store_prog/features/product_viewer/presentation/bloc/product_viewer_bloc.dart';
-import 'package:fake_store_prog/features/product_viewer/presentation/ui/product_page.dart';
+import 'package:fake_store_prog/features/item_viewer/presentation/bloc/item_viewer_bloc.dart';
+import 'package:fake_store_prog/features/item_viewer/presentation/ui/item_page.dart';
 import 'package:fake_store_prog/core/styles/text_styles.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -18,9 +18,9 @@ class ItemCard extends StatelessWidget {
           Navigator.push(
             context,
             MaterialPageRoute(
-              builder: (context) => BlocProvider<ProductViewerBloc>(
-                create: (ctx) => GetIt.I<ProductViewerBloc>(),
-                child: ProductPage(item: item),
+              builder: (context) => BlocProvider<ItemViewerBloc>(
+                create: (ctx) => GetIt.I<ItemViewerBloc>(),
+                child: ItemPage(item: item),
               ),
             ),
           );

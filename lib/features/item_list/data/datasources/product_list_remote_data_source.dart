@@ -16,7 +16,7 @@ class ProductListRemoteDataSource {
 
   Future<List<Item>> fetchProducts() async {
     try {
-      final response = await _apiClient.fetchProducts();
+      final response = await _apiClient.fetchItems();
 
       if (response.statusCode == 200) {
         final List<dynamic> data = response.data;

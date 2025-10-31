@@ -40,9 +40,9 @@ class CartRepository implements ICartRepository {
   }
 
   @override
-  Future<List<Item>> getProductsForCartItems(List<CartItem> items) async {
+  Future<List<Item>> getItemsForCartItems(List<CartItem> items) async {
     try {
-      final futures = items.map((ci) => remoteDataSource.getProductById(ci.productId));
+      final futures = items.map((ci) => remoteDataSource.getItemById(ci.itemId));
       final products = await Future.wait(futures);
       return products;
     } catch (e) {

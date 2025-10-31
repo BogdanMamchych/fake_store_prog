@@ -1,8 +1,8 @@
 class ApiRoutes {
   ApiRoutes._();
 
-  static const String products = '/products';
-  static String product(int id) => '/products/$id';
+  static const String items = '/products';
+  static String item(int id) => '/products/$id';
 
   static const String users = '/users';
   static String user(int id) => '/users/$id';

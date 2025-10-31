@@ -1,10 +1,8 @@
-// lib/pages/product_page.dart
-
 import 'package:flutter/material.dart';
 
-class ProductImage extends StatelessWidget {
+class ItemImage extends StatelessWidget {
   final String imageUrl;
-  const ProductImage({Key? key, required this.imageUrl}) : super(key: key);
+  const ItemImage({super.key, required this.imageUrl});
 
   @override
   Widget build(BuildContext context) {

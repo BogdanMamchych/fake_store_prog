@@ -16,10 +16,10 @@ class GetTotalPriceUseCase {
     int totalCents = 0;
 
     for (final ci in cartItems) {
-      final product = itemById[ci.productId];
+      final product = itemById[ci.itemId];
       if (product == null) {
         if (product == null) {
-          throw ItemNotFoundException('Product ${ci.productId} not found');
+          throw ItemNotFoundException('Product ${ci.itemId} not found');
         }
       }
 

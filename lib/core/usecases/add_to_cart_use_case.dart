@@ -10,7 +10,7 @@ class AddToCartUseCase {
   AddToCartUseCase({required this.cartRepository});
 
   Future<void> call(Item item) async{
-    CartItem cartItem = CartItem(productId: item.id);
+    CartItem cartItem = CartItem(itemId: item.id);
     await cartRepository.addItemToCart(cartItem);
   }
 }
