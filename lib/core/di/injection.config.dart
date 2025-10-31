@@ -47,20 +47,22 @@ import 'package:fake_store_prog/features/cart/domain/usecases/remove_item_use_ca
     as _i205;
 import 'package:fake_store_prog/features/cart/presentation/bloc/cart_bloc.dart'
     as _i53;
-import 'package:fake_store_prog/features/product_list/data/datasources/product_list_remote_data_source.dart'
-    as _i584;
-import 'package:fake_store_prog/features/product_list/data/repositories/product_list_repository.dart'
-    as _i360;
-import 'package:fake_store_prog/features/product_list/domain/repositories/i_product_list_repository.dart'
-    as _i378;
-import 'package:fake_store_prog/features/product_list/domain/usecases/fetch_products_use_case.dart'
-    as _i260;
-import 'package:fake_store_prog/features/product_list/domain/usecases/get_user_use_case.dart'
-    as _i918;
-import 'package:fake_store_prog/features/product_list/presentation/bloc/product_list_bloc.dart'
-    as _i13;
-import 'package:fake_store_prog/features/product_viewer/bloc/product_viewer_bloc.dart'
-    as _i775;
+import 'package:fake_store_prog/features/item_list/data/datasources/product_list_remote_data_source.dart'
+    as _i922;
+import 'package:fake_store_prog/features/item_list/data/repositories/product_list_repository.dart'
+    as _i988;
+import 'package:fake_store_prog/features/item_list/domain/repositories/i_product_list_repository.dart'
+    as _i739;
+import 'package:fake_store_prog/features/item_list/domain/usecases/fetch_products_use_case.dart'
+    as _i671;
+import 'package:fake_store_prog/features/item_list/domain/usecases/get_user_use_case.dart'
+    as _i293;
+import 'package:fake_store_prog/features/item_list/presentation/bloc/item_list_bloc.dart'
+    as _i217;
+import 'package:fake_store_prog/features/product_viewer/domain/usecases/add_item_use_case.dart'
+    as _i407;
+import 'package:fake_store_prog/features/product_viewer/presentation/bloc/product_viewer_bloc.dart'
+    as _i1035;
 import 'package:get_it/get_it.dart' as _i174;
 import 'package:injectable/injectable.dart' as _i526;
 
@@ -77,20 +79,23 @@ extension GetItInjectableX on _i174.GetIt {
     gh.lazySingleton<_i626.CartLocalDataSource>(
       () => _i626.CartLocalDataSource(gh<_i540.UserPreferences>()),
     );
-    gh.factory<_i775.ProductViewerBloc>(
-      () => _i775.ProductViewerBloc(apiClient: gh<_i58.ApiClient>()),
-    );
-    gh.lazySingleton<_i584.ProductListRemoteDataSource>(
-      () => _i584.ProductListRemoteDataSource(
+    gh.lazySingleton<_i922.ProductListRemoteDataSource>(
+      () => _i922.ProductListRemoteDataSource(
         gh<_i58.ApiClient>(),
         gh<_i540.UserPreferences>(),
       ),
     );
+    gh.factory<_i934.CartRemoteDataSource>(
+      () => _i934.CartRemoteDataSource(gh<_i58.ApiClient>()),
+    );
     gh.lazySingleton<_i371.AuthRemoteDataSource>(
       () => _i371.AuthRemoteDataSource(gh<_i58.ApiClient>()),
     );
-    gh.lazySingleton<_i934.CartRemoteDataSource>(
-      () => _i934.CartRemoteDataSource(gh<_i58.ApiClient>()),
+    gh.lazySingleton<_i739.IProductListRepository>(
+      () => _i988.ProductListRepository(
+        remoteDataSource: gh<_i922.ProductListRemoteDataSource>(),
+        userPreferences: gh<_i540.UserPreferences>(),
+      ),
     );
     gh.lazySingleton<_i267.IAuthRepository>(
       () => _i110.AuthRepository(
@@ -98,28 +103,22 @@ extension GetItInjectableX on _i174.GetIt {
         userPreferences: gh<_i540.UserPreferences>(),
       ),
     );
-    gh.lazySingleton<_i378.IProductListRepository>(
-      () => _i360.ProductListRepository(
-        remoteDataSource: gh<_i584.ProductListRemoteDataSource>(),
-        userPreferences: gh<_i540.UserPreferences>(),
-      ),
-    );
-    gh.factory<_i260.FetchProductsUseCase>(
-      () => _i260.FetchProductsUseCase(gh<_i378.IProductListRepository>()),
-    );
-    gh.factory<_i918.GetUserUseCase>(
-      () => _i918.GetUserUseCase(gh<_i378.IProductListRepository>()),
-    );
     gh.lazySingleton<_i591.ICartRepository>(
       () => _i239.CartRepository(
         localDataSource: gh<_i626.CartLocalDataSource>(),
         remoteDataSource: gh<_i934.CartRemoteDataSource>(),
       ),
     );
-    gh.factory<_i13.ProductListBloc>(
-      () => _i13.ProductListBloc(
-        fetchProductsUseCase: gh<_i260.FetchProductsUseCase>(),
-        getUserUseCase: gh<_i918.GetUserUseCase>(),
+    gh.factory<_i671.FetchItemsUseCase>(
+      () => _i671.FetchItemsUseCase(gh<_i739.IProductListRepository>()),
+    );
+    gh.factory<_i293.GetUserUseCase>(
+      () => _i293.GetUserUseCase(gh<_i739.IProductListRepository>()),
+    );
+    gh.factory<_i217.ItemListBloc>(
+      () => _i217.ItemListBloc(
+        fetchProductsUseCase: gh<_i671.FetchItemsUseCase>(),
+        getUserUseCase: gh<_i293.GetUserUseCase>(),
       ),
     );
     gh.factory<_i172.LoginUseCase>(
@@ -151,6 +150,9 @@ extension GetItInjectableX on _i174.GetIt {
       () =>
           _i205.RemoveItemUseCase(cartRepository: gh<_i591.ICartRepository>()),
     );
+    gh.factory<_i407.AddItemUseCase>(
+      () => _i407.AddItemUseCase(cartRepository: gh<_i591.ICartRepository>()),
+    );
     gh.factory<_i279.ConfirmCartUseCase>(
       () => _i279.ConfirmCartUseCase(
         cartRepository: gh<_i591.ICartRepository>(),
@@ -159,6 +161,10 @@ extension GetItInjectableX on _i174.GetIt {
     );
     gh.factory<_i651.AuthBloc>(
       () => _i651.AuthBloc(loginUseCase: gh<_i172.LoginUseCase>()),
+    );
+    gh.factory<_i1035.ProductViewerBloc>(
+      () =>
+          _i1035.ProductViewerBloc(addItemUseCase: gh<_i407.AddItemUseCase>()),
     );
     gh.factory<_i53.CartBloc>(
       () => _i53.CartBloc(

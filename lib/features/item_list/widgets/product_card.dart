@@ -1,15 +1,14 @@
 import 'package:fake_store_prog/core/models/item.dart';
-import 'package:fake_store_prog/features/product_viewer/bloc/product_viewer_bloc.dart';
-import 'package:fake_store_prog/features/product_viewer/bloc/product_viewer_event.dart';
-import 'package:fake_store_prog/features/product_viewer/ui/product_page.dart';
+import 'package:fake_store_prog/features/product_viewer/presentation/bloc/product_viewer_bloc.dart';
+import 'package:fake_store_prog/features/product_viewer/presentation/ui/product_page.dart';
 import 'package:fake_store_prog/core/styles/text_styles.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:get_it/get_it.dart';
 
-class ProductCard extends StatelessWidget {
-  final Item product;
-  const ProductCard({super.key, required this.product});
+class ItemCard extends StatelessWidget {
+  final Item item;
+  const ItemCard({super.key, required this.item});
 
   @override
   Widget build(BuildContext context) {
@@ -20,8 +19,8 @@ class ProductCard extends StatelessWidget {
             context,
             MaterialPageRoute(
               builder: (context) => BlocProvider<ProductViewerBloc>(
-                create: (ctx) => GetIt.I<ProductViewerBloc>()..add(GetProductEvent(productId: product.id)),
-                child: ProductPage(productId: product.id),
+                create: (ctx) => GetIt.I<ProductViewerBloc>(),
+                child: ProductPage(item: item),
               ),
             ),
           );
@@ -45,7 +44,7 @@ class ProductCard extends StatelessWidget {
                   decoration: BoxDecoration(
                     borderRadius: BorderRadius.circular(4),
                     image: DecorationImage(
-                      image: NetworkImage(product.imageURL),
+                      image: NetworkImage(item.imageURL),
                       fit: BoxFit.cover,
                     ),
                   ),
@@ -67,36 +66,20 @@ class ProductCard extends StatelessWidget {
                               crossAxisAlignment: CrossAxisAlignment.start,
                               children: [
                                 Text(
-                                  product.title,
+                                  item.title,
                                   style: buttonTextStyle,
                                   maxLines: 1,
                                   overflow: TextOverflow.ellipsis,
                                 ),
                                 const SizedBox(height: 4),
                                 Text(
-                                  product.description,
+                                  item.description,
                                   style: labelTextStyle,
                                   maxLines: 2,
                                   overflow: TextOverflow.ellipsis,
                                 ),
                               ],
                             ),
-                          ),
-        
-                          IconButton(
-                            onPressed: () {
-                              Navigator.push(
-                                context,
-                                MaterialPageRoute(
-                                  builder: (context) => BlocProvider<ProductViewerBloc>(
-                                    create: (ctx) => GetIt.I<ProductViewerBloc>()..add(GetProductEvent(productId: product.id)),
-                                    child: ProductPage(productId: product.id),
-                                  ),
-                                ),
-                              );
-                            },
-                            icon: const Icon(Icons.favorite_border),
-                            constraints: const BoxConstraints.tightFor(width: 40, height: 40),
                           ),
                         ],
                       ),
@@ -108,10 +91,10 @@ class ProductCard extends StatelessWidget {
                             children: [
                               const Icon(Icons.star, size: 10),
                               const SizedBox(width: 4),
-                              Text(product.rating.toStringAsFixed(1), style: labelTextStyle),
+                              Text(item.rating.toStringAsFixed(1), style: labelTextStyle),
                             ],
                           ),
-                          Text('\$${product.price.toStringAsFixed(2)}', style: labelTextStyle),
+                          Text('\$${item.price.toStringAsFixed(2)}', style: labelTextStyle),
                         ],
                       ),
                     ],

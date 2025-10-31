@@ -1,7 +1,7 @@
-import 'package:fake_store_prog/features/product_list/presentation/bloc/product_list_bloc.dart';
-import 'package:fake_store_prog/features/product_list/presentation/bloc/product_list_event.dart';
+import 'package:fake_store_prog/features/item_list/presentation/bloc/item_list_bloc.dart';
+import 'package:fake_store_prog/features/item_list/presentation/bloc/item_list_event.dart';
 import 'package:fake_store_prog/core/styles/text_styles.dart';
-import 'package:fake_store_prog/features/product_list/presentation/ui/home_page.dart';
+import 'package:fake_store_prog/features/item_list/presentation/ui/home_page.dart';
 import 'package:fake_store_prog/core/widgets/custom_elevated_button.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -58,8 +58,8 @@ class _LoginPageState extends State<LoginPage> {
           Navigator.push(
             context,
             MaterialPageRoute(
-              builder: (context) => BlocProvider<ProductListBloc>(
-                create: (ctx) => GetIt.I<ProductListBloc>()..add(FetchProductsEvent()),
+              builder: (context) => BlocProvider<ItemListBloc>(
+                create: (ctx) => GetIt.I<ItemListBloc>()..add(FetchProductsEvent()),
                 child: const HomePage(),
               ),
             ),

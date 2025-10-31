@@ -1,11 +1,11 @@
 import 'package:fake_store_prog/core/models/item.dart';
-import 'package:fake_store_prog/features/product_list/domain/repositories/i_product_list_repository.dart';
+import 'package:fake_store_prog/features/item_list/domain/repositories/i_product_list_repository.dart';
 import 'package:injectable/injectable.dart';
 
 @injectable
-class FetchProductsUseCase {
+class FetchItemsUseCase {
   final IProductListRepository repository;
-  FetchProductsUseCase(this.repository);
+  FetchItemsUseCase(this.repository);
 
   Future<List<Item>> call () {
     return repository.fetchProductList();

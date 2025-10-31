@@ -15,7 +15,7 @@ class CartRepository implements ICartRepository {
     required this.remoteDataSource,
   });
 
-  @override
+ @override
   Future<void> addItemToCart(CartItem cartItem) async {
     await localDataSource.addItem(cartItem);
   }
