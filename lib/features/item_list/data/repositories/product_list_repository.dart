@@ -1,3 +1,4 @@
+import 'package:fake_store_prog/core/local/app_constants.dart';
 import 'package:fake_store_prog/core/local/exceptions.dart';
 import 'package:fake_store_prog/core/local/user_preferences.dart';
 import 'package:fake_store_prog/core/models/user.dart';
@@ -17,16 +18,15 @@ class ProductListRepository implements IProductListRepository {
   });
 
   @override
-  Future<List<Item>> fetchProductList() async {
+  Future<List<Item>> fetchProductList({int page = 1, int limit = AppConstants.itemsPerPage}) async {
     try {
-      return await remoteDataSource.fetchProducts();
-    } on NetworkException {
-      rethrow;
-    } on TimeoutException {
-      rethrow;
-    } on UnauthorizedException {
-      rethrow;
-    } on ServerException {
+      final all = await remoteDataSource.fetchProducts();
+
+      final start = (page - 1) * limit;
+      if (start >= all.length) return <Item>[];
+      final end = (start + limit) > all.length ? all.length : (start + limit);
+      return all.sublist(start, end);
+    } on StorageException {
       rethrow;
     } on ParsingException {
       rethrow;
