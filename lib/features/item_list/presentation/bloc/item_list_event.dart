@@ -1,6 +1,11 @@
-abstract class ItemListEvent {}
+import 'package:equatable/equatable.dart';
 
-class FetchItemsEvent extends ItemListEvent {
+abstract class ItemListEvent extends Equatable{}
+
+class FetchItemsRequested extends ItemListEvent {
   final bool refresh;
-  FetchItemsEvent({this.refresh = false});
+  FetchItemsRequested({this.refresh = false});
+
+  @override
+  List<Object?> get props => [refresh];
 }

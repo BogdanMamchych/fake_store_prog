@@ -18,7 +18,7 @@ class AuthBloc extends Bloc<AuthEvent, AuthState> {
        _logOutUseCase = logOutUseCase,
        super(AuthInitial()) {
     on<LoginRequested>(_onLoginRequested);
-    on<LogOutEvent>(_onLogOutEvent);
+    on<LogOutRequested>(_onLogOutEvent);
   }
 
   Future<void> _onLoginRequested(
@@ -45,7 +45,7 @@ class AuthBloc extends Bloc<AuthEvent, AuthState> {
   }
 
   Future<void> _onLogOutEvent(
-    LogOutEvent event,
+    LogOutRequested event,
     Emitter<AuthState> emit,
   ) async {
     try {

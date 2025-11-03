@@ -1,6 +1,6 @@
 import 'package:fake_store_prog/core/local/app_constants.dart';
 import 'package:fake_store_prog/core/models/item.dart';
-import 'package:fake_store_prog/features/item_list/domain/usecases/fetch_products_use_case.dart';
+import 'package:fake_store_prog/features/item_list/domain/usecases/fetch_items_use_case.dart';
 import 'package:fake_store_prog/features/item_list/domain/usecases/get_user_use_case.dart';
 import 'package:fake_store_prog/features/item_list/presentation/bloc/item_list_event.dart';
 import 'package:fake_store_prog/features/item_list/presentation/bloc/item_list_state.dart';
@@ -21,12 +21,12 @@ class ItemListBloc extends Bloc<ItemListEvent, ItemListState> {
     required GetUserUseCase getUserUseCase,
   })  : _fetchItemsUseCase = fetchProductsUseCase,
         _getUserUseCase = getUserUseCase,
-        super(ProductListStateInitial()) {
-    on<FetchItemsEvent>(_onFetchProducts);
+        super(ItemListStateInitial()) {
+    on<FetchItemsRequested>(_onFetchProducts);
   }
 
   Future<void> _onFetchProducts(
-    FetchItemsEvent event,
+    FetchItemsRequested event,
     Emitter<ItemListState> emit,
   ) async {
     if (_isFetching) return;
@@ -51,14 +51,14 @@ class ItemListBloc extends Bloc<ItemListEvent, ItemListState> {
       final reachedMax = fetchedCount < AppConstants.itemsPerPage;
 
       if (_page == 1) {
-        emit(OpenProductListSuccess(items: products, user: user, hasReachedMax: reachedMax, page: _page));
+        emit(OpenItemsListSuccess(items: products, user: user, hasReachedMax: reachedMax, page: _page));
       } else {
         final current = state;
-        if (current is OpenProductListSuccess) {
+        if (current is OpenItemsListSuccess) {
           final List<Item> combined = List.from(current.items)..addAll(products);
-          emit(OpenProductListSuccess(items: combined, user: user, hasReachedMax: reachedMax, page: _page));
+          emit(OpenItemsListSuccess(items: combined, user: user, hasReachedMax: reachedMax, page: _page));
         } else {
-          emit(OpenProductListSuccess(items: products, user: user, hasReachedMax: reachedMax, page: _page));
+          emit(OpenItemsListSuccess(items: products, user: user, hasReachedMax: reachedMax, page: _page));
         }
       }
 
@@ -68,7 +68,7 @@ class ItemListBloc extends Bloc<ItemListEvent, ItemListState> {
         _hasReachedMax = true;
       }
     } catch (e) {
-      emit(FetchProductsError(e.toString()));
+      emit(FetchItemsError(e.toString()));
     } finally {
       _isFetching = false;
     }

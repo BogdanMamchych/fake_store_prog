@@ -57,7 +57,7 @@ import 'package:fake_store_prog/features/item_list/data/repositories/product_lis
     as _i988;
 import 'package:fake_store_prog/features/item_list/domain/repositories/i_product_list_repository.dart'
     as _i739;
-import 'package:fake_store_prog/features/item_list/domain/usecases/fetch_products_use_case.dart'
+import 'package:fake_store_prog/features/item_list/domain/usecases/fetch_items_use_case.dart'
     as _i671;
 import 'package:fake_store_prog/features/item_list/domain/usecases/get_user_use_case.dart'
     as _i293;

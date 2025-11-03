@@ -24,7 +24,7 @@ class _HomePageState extends State<HomePage> {
   @override
   void initState() {
     super.initState();
-    context.read<ItemListBloc>().add(FetchItemsEvent());
+    context.read<ItemListBloc>().add(FetchItemsRequested());
     _scrollController.addListener(_onScroll);
   }
 
@@ -41,20 +41,20 @@ class _HomePageState extends State<HomePage> {
     final current = _scrollController.position.pixels;
     if (maxScroll - current <= _scrollThreshold) {
       final state = context.read<ItemListBloc>().state;
-      if (state is OpenProductListSuccess && !state.hasReachedMax) {
-        context.read<ItemListBloc>().add(FetchItemsEvent());
-      } else if (state is ProductListStateInitial) {
-        context.read<ItemListBloc>().add(FetchItemsEvent());
+      if (state is OpenItemsListSuccess && !state.hasReachedMax) {
+        context.read<ItemListBloc>().add(FetchItemsRequested());
+      } else if (state is ItemListStateInitial) {
+        context.read<ItemListBloc>().add(FetchItemsRequested());
       }
     }
   }
 
   Future<void> _onRefresh() async {
-    context.read<ItemListBloc>().add(FetchItemsEvent(refresh: true));
+    context.read<ItemListBloc>().add(FetchItemsRequested(refresh: true));
     // Optional: wait until first page loaded or timeout
     final completer = Completer<void>();
     final sub = context.read<ItemListBloc>().stream.listen((s) {
-      if (s is OpenProductListSuccess || s is FetchProductsError) {
+      if (s is OpenItemsListSuccess || s is FetchItemsError) {
         if (!completer.isCompleted) completer.complete();
       }
     });
@@ -66,7 +66,7 @@ class _HomePageState extends State<HomePage> {
   Widget build(BuildContext context) {
     return BlocListener<ItemListBloc, ItemListState>(
       listener: (context, state) {
-        if (state is FetchProductsError) {
+        if (state is FetchItemsError) {
           ScaffoldMessenger.of(context).showSnackBar(SnackBar(content: Text(state.message)));
         }
       },
@@ -75,9 +75,9 @@ class _HomePageState extends State<HomePage> {
         body: SafeArea(
           child: BlocBuilder<ItemListBloc, ItemListState>(
             builder: (context, state) {
-              if (state is FetchLoading || state is ProductListStateInitial) {
+              if (state is FetchLoading || state is ItemListStateInitial) {
                 return const Center(child: CircularProgressIndicator());
-              } else if (state is OpenProductListSuccess) {
+              } else if (state is OpenItemsListSuccess) {
                 final username = state.user.name;
                 final items = state.items;
                 final hasReachedMax = state.hasReachedMax;
@@ -115,7 +115,7 @@ class _HomePageState extends State<HomePage> {
                     ),
                   ],
                 );
-              } else if (state is FetchProductsError) {
+              } else if (state is FetchItemsError) {
                 return Center(child: Text('Error: ${state.message}', style: mainTextStyle));
               }
               return const SizedBox.shrink();

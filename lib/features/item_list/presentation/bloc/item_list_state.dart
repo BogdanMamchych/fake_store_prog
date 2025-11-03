@@ -7,11 +7,11 @@ class ItemListState extends Equatable {
   List<Object?> get props => [];
 }
 
-class ProductListStateInitial extends ItemListState {}
+class ItemListStateInitial extends ItemListState {}
 
-class FetchProductsError extends ItemListState {
+class FetchItemsError extends ItemListState {
   final String message;
-  FetchProductsError(this.message);
+  FetchItemsError(this.message);
 
   @override
   List<Object?> get props => [message];
@@ -19,26 +19,26 @@ class FetchProductsError extends ItemListState {
 
 class FetchLoading extends ItemListState {}
 
-class OpenProductListSuccess extends ItemListState {
+class OpenItemsListSuccess extends ItemListState {
   final List<Item> items;
   final User user;
   final bool hasReachedMax;
   final int page;
 
-  OpenProductListSuccess({
+  OpenItemsListSuccess({
     required this.items,
     required this.user,
     required this.hasReachedMax,
     required this.page,
   });
 
-  OpenProductListSuccess copyWith({
+  OpenItemsListSuccess copyWith({
     List<Item>? items,
     User? user,
     bool? hasReachedMax,
     int? page,
   }) {
-    return OpenProductListSuccess(
+    return OpenItemsListSuccess(
       items: items ?? this.items,
       user: user ?? this.user,
       hasReachedMax: hasReachedMax ?? this.hasReachedMax,

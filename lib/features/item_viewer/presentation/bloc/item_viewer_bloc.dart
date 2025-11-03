@@ -11,11 +11,11 @@ class ItemViewerBloc extends Bloc<ItemViewerEvent, ItemViewerState> {
   ItemViewerBloc({required AddItemUseCase addItemUseCase})
     : _addItemUseCase = addItemUseCase,
       super(ItemViewerInitial()) {
-    on<AddToCartEvent>(_onAddToCart);
+    on<AddToCartRequested>(_onAddToCart);
   }
 
   Future<void> _onAddToCart(
-    AddToCartEvent event,
+    AddToCartRequested event,
     Emitter<ItemViewerState> emit,
   ) async {
     try {

@@ -33,7 +33,7 @@ class CartPage extends StatelessWidget {
               Builder(
                 builder: (context) {
                   WidgetsBinding.instance.addPostFrameCallback((_) {
-                    context.read<CartBloc>().add(FetchCartEvent());
+                    context.read<CartBloc>().add(FetchCartRequested());
                   });
                   return const SizedBox.shrink();
                 },
@@ -94,7 +94,7 @@ class CartPage extends StatelessWidget {
                                   onDismissed: (_) {
                                     if (cartItem != null) {
                                       context.read<CartBloc>().add(
-                                        RemoveItemFromCartEvent(
+                                        RemoveItemFromCartRequested(
                                           cartItem: cartItem,
                                         ),
                                       );
@@ -166,7 +166,7 @@ class CartPage extends StatelessWidget {
                                                           context
                                                               .read<CartBloc>()
                                                               .add(
-                                                                IncreaseItemQuantityEvent(
+                                                                IncreaseItemQuantityRequested(
                                                                   cartItem:
                                                                       cartItem,
                                                                 ),
@@ -178,7 +178,7 @@ class CartPage extends StatelessWidget {
                                                           context
                                                               .read<CartBloc>()
                                                               .add(
-                                                                DecreaseItemQuantityEvent(
+                                                                DecreaseItemQuantityRequested(
                                                                   cartItem:
                                                                       cartItem,
                                                                 ),
@@ -269,7 +269,7 @@ class CartPage extends StatelessWidget {
                                       ),
                                       onPressed: () {
                                         context.read<CartBloc>().add(
-                                          ConfirmCartEvent(
+                                          ConfirmCartRequested(
                                             cartItemList: cartItems,
                                           ),
                                         );

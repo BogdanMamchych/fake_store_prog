@@ -6,10 +6,10 @@ abstract class ItemViewerEvent extends Equatable {
   List<Object?> get props => [];
 }
 
-class AddToCartEvent extends ItemViewerEvent {
+class AddToCartRequested extends ItemViewerEvent {
   final Item item;
 
-  AddToCartEvent({required this.item});
+  AddToCartRequested({required this.item});
 
   @override
   List<Object?> get props => [item];

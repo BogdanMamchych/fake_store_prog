@@ -30,7 +30,7 @@ final GoRouter appRouter = GoRouter(
       name: 'home',
       builder: (context, state) {
         return BlocProvider<ItemListBloc>(
-          create: (_) => GetIt.I<ItemListBloc>()..add(FetchItemsEvent()),
+          create: (_) => GetIt.I<ItemListBloc>()..add(FetchItemsRequested()),
           child: const HomePage(),
         );
       },
@@ -53,7 +53,7 @@ final GoRouter appRouter = GoRouter(
       name: 'logout',
       builder: (context, state) {
         return BlocProvider<AuthBloc>(
-          create: (_) => GetIt.I<AuthBloc>()..add(LogOutEvent()),
+          create: (_) => GetIt.I<AuthBloc>()..add(LogOutRequested()),
           child: const LoginPage(),
         );
       }
@@ -64,7 +64,7 @@ final GoRouter appRouter = GoRouter(
       name: 'cart',
       builder: (context, state) {
         return BlocProvider<CartBloc>(
-          create: (_) => GetIt.I<CartBloc>()..add(FetchCartEvent()),
+          create: (_) => GetIt.I<CartBloc>()..add(FetchCartRequested()),
           child: const CartPage(),
         );
       },

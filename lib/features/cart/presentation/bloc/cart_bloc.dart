@@ -39,12 +39,12 @@ class CartBloc extends Bloc<CartEvent, CartState> {
         _removeItemUseCase = removeItemUseCase,
         _confirmCartUseCase = confirmCartUseCase,
         super(CartInitial()) {
-    on<FetchCartEvent>(_onFetchCart);
-    on<RemoveItemFromCartEvent>(_onRemoveItem);
-    on<IncreaseItemQuantityEvent>(_onIncreaseItemQuantity);
-    on<DecreaseItemQuantityEvent>(_onDecreaseItemQuantity);
-    on<ConfirmCartEvent>(_confirmCart);
-    on<ClearCartEvent>(_onClearCart);
+    on<FetchCartRequested>(_onFetchCart);
+    on<RemoveItemFromCartRequested>(_onRemoveItem);
+    on<IncreaseItemQuantityRequested>(_onIncreaseItemQuantity);
+    on<DecreaseItemQuantityRequested>(_onDecreaseItemQuantity);
+    on<ConfirmCartRequested>(_confirmCart);
+    on<ClearCartRequested>(_onClearCart);
   }
 
   double _calculateTotal(List<CartItem> cartItems, List<Item> products) {
@@ -66,7 +66,7 @@ class CartBloc extends Bloc<CartEvent, CartState> {
   }
 
   Future<void> _onFetchCart(
-    FetchCartEvent event,
+    FetchCartRequested event,
     Emitter<CartState> emit,
   ) async {
     emit(CartLoading());
@@ -103,7 +103,7 @@ class CartBloc extends Bloc<CartEvent, CartState> {
   }
 
   Future<void> _onRemoveItem(
-    RemoveItemFromCartEvent event,
+    RemoveItemFromCartRequested event,
     Emitter<CartState> emit,
   ) async {
     final current = state;
@@ -163,7 +163,7 @@ class CartBloc extends Bloc<CartEvent, CartState> {
   }
 
   Future<void> _onIncreaseItemQuantity(
-    IncreaseItemQuantityEvent event,
+    IncreaseItemQuantityRequested event,
     Emitter<CartState> emit,
   ) async {
     final current = state;
@@ -218,7 +218,7 @@ class CartBloc extends Bloc<CartEvent, CartState> {
   }
 
   Future<void> _onDecreaseItemQuantity(
-    DecreaseItemQuantityEvent event,
+    DecreaseItemQuantityRequested event,
     Emitter<CartState> emit,
   ) async {
     final current = state;
@@ -275,7 +275,7 @@ class CartBloc extends Bloc<CartEvent, CartState> {
   }
 
   Future<void> _confirmCart(
-    ConfirmCartEvent event,
+    ConfirmCartRequested event,
     Emitter<CartState> emit,
   ) async {
     final current = state;
@@ -343,7 +343,7 @@ class CartBloc extends Bloc<CartEvent, CartState> {
   }
 
   Future<void> _onClearCart(
-    ClearCartEvent event,
+    ClearCartRequested event,
     Emitter<CartState> emit,
   ) async {
     final current = state;
