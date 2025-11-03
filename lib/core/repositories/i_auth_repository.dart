@@ -4,4 +4,6 @@ abstract class IAuthRepository {
     required String username,
     required String password,
   });
+
+  Future<void> logout();
 }

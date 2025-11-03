@@ -1,7 +1,7 @@
 import 'package:fake_store_prog/core/styles/text_styles.dart';
-import 'package:fake_store_prog/features/auth/presentation/ui/login_page.dart';
 import 'package:fake_store_prog/core/widgets/custom_elevated_button.dart';
 import 'package:flutter/material.dart';
+import 'package:go_router/go_router.dart';
 
 class WelcomePage extends StatelessWidget {
   const WelcomePage({super.key});
@@ -28,10 +28,7 @@ class WelcomePage extends StatelessWidget {
                   child: Image.asset('assets/images/fake_store_logo.png'),
                 ),
                 const SizedBox(height: 10),
-                const Text(
-                  'Fake Store',
-                  style: mainTextStyle
-                ),
+                const Text('Fake Store', style: mainTextStyle),
                 const SizedBox(height: 20),
                 Padding(
                   padding: const EdgeInsets.symmetric(horizontal: 24.0),
@@ -40,7 +37,9 @@ class WelcomePage extends StatelessWidget {
                     height: 48,
                     child: CustomElevatedButton(
                       text: 'Get Started',
-                      onPressed: () {Navigator.push(context, MaterialPageRoute(builder: (context) => LoginPage()));},
+                      onPressed: () {
+                        context.push('/login');
+                      },
                     ),
                   ),
                 ),

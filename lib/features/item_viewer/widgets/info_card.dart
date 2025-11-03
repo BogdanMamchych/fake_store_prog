@@ -3,7 +3,7 @@ import 'package:flutter/material.dart';
 
 class InfoCard extends StatelessWidget {
   final Item item;
-  const InfoCard({Key? key, required this.item}) : super(key: key);
+  const InfoCard({super.key, required this.item});
 
   @override
   Widget build(BuildContext context) {

@@ -42,6 +42,7 @@ class UserPreferences {
     await prefs.remove(_userIdKey);
     await prefs.remove(_usernameKey);
     await prefs.remove(_emailKey);
+    await clearCartList();
   }
 
   Future<void> setCartList(List<CartItem> cartList) async {

@@ -1,14 +1,11 @@
-import 'package:fake_store_prog/features/item_list/presentation/bloc/item_list_bloc.dart';
-import 'package:fake_store_prog/features/item_list/presentation/bloc/item_list_event.dart';
-import 'package:fake_store_prog/core/styles/text_styles.dart';
-import 'package:fake_store_prog/features/item_list/presentation/ui/home_page.dart';
+﻿import 'package:fake_store_prog/core/styles/text_styles.dart';
 import 'package:fake_store_prog/core/widgets/custom_elevated_button.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:fake_store_prog/features/auth/presentation/bloc/auth_bloc.dart';
 import 'package:fake_store_prog/features/auth/presentation/bloc/auth_event.dart';
 import 'package:fake_store_prog/features/auth/presentation/bloc/auth_state.dart';
-import 'package:get_it/get_it.dart';
+import 'package:go_router/go_router.dart';
 
 class LoginPage extends StatefulWidget {
   const LoginPage({super.key});
@@ -55,21 +52,15 @@ class _LoginPageState extends State<LoginPage> {
               backgroundColor: Colors.green,
             ),
           );
-          Navigator.push(
-            context,
-            MaterialPageRoute(
-              builder: (context) => BlocProvider<ItemListBloc>(
-                create: (ctx) => GetIt.I<ItemListBloc>()..add(FetchItemsEvent()),
-                child: const HomePage(),
-              ),
-            ),
-          );
+
+          context.go('/');
         } else if (state is AuthError) {
           ScaffoldMessenger.of(
             context,
           ).showSnackBar(SnackBar(content: Text(state.message)));
         }
       },
+
       child: Scaffold(
         body: SafeArea(
           child: SingleChildScrollView(
@@ -81,7 +72,7 @@ class _LoginPageState extends State<LoginPage> {
                   const SizedBox(height: 16),
 
                   GestureDetector(
-                    onTap: () => Navigator.of(context).maybePop(),
+                    onTap: () => context.pop(),
                     child: Container(
                       width: 41,
                       height: 41,

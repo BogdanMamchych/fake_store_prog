@@ -1,4 +1,5 @@
 import 'package:fake_store_prog/core/local/exceptions.dart';
+import 'package:fake_store_prog/core/usecases/log_out_use_case.dart';
 import 'package:fake_store_prog/features/auth/domain/usecases/login_use_case.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:injectable/injectable.dart';
@@ -8,11 +9,16 @@ import 'auth_state.dart';
 @injectable
 class AuthBloc extends Bloc<AuthEvent, AuthState> {
   final LoginUseCase _loginUseCase;
+  final LogOutUseCase _logOutUseCase;
 
-  AuthBloc({required LoginUseCase loginUseCase})
-    : _loginUseCase = loginUseCase,
-      super(AuthInitial()) {
+  AuthBloc({
+    required LogOutUseCase logOutUseCase,
+    required LoginUseCase loginUseCase,
+  }) : _loginUseCase = loginUseCase,
+       _logOutUseCase = logOutUseCase,
+       super(AuthInitial()) {
     on<LoginRequested>(_onLoginRequested);
+    on<LogOutEvent>(_onLogOutEvent);
   }
 
   Future<void> _onLoginRequested(
@@ -21,10 +27,7 @@ class AuthBloc extends Bloc<AuthEvent, AuthState> {
   ) async {
     emit(AuthLoading());
     try {
-      _loginUseCase(
-        username: event.username,
-        password: event.password,
-      );
+      await _loginUseCase(username: event.username, password: event.password);
       emit(AuthAuthenticated());
     } on InvalidCredentialsException catch (e) {
       emit(AuthError(message: e.message));
@@ -38,6 +41,17 @@ class AuthBloc extends Bloc<AuthEvent, AuthState> {
       emit(AuthError(message: e.message));
     } catch (e) {
       emit(AuthError(message: e.toString()));
+    }
+  }
+
+  Future<void> _onLogOutEvent(
+    LogOutEvent event,
+    Emitter<AuthState> emit,
+  ) async {
+    try {
+      _logOutUseCase;
+    } on StorageException catch (e) {
+      emit(AuthError(message: 'Storage exception: ${e.message}'));
     }
   }
 }

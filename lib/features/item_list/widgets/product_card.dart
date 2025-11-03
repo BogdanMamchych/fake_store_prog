@@ -1,10 +1,8 @@
 import 'package:fake_store_prog/core/models/item.dart';
-import 'package:fake_store_prog/features/item_viewer/presentation/bloc/item_viewer_bloc.dart';
-import 'package:fake_store_prog/features/item_viewer/presentation/ui/item_page.dart';
 import 'package:fake_store_prog/core/styles/text_styles.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:get_it/get_it.dart';
+import 'package:go_router/go_router.dart';
+
 
 class ItemCard extends StatelessWidget {
   final Item item;
@@ -15,15 +13,7 @@ class ItemCard extends StatelessWidget {
     return Material(
       child: InkWell(
         onTap: () {
-          Navigator.push(
-            context,
-            MaterialPageRoute(
-              builder: (context) => BlocProvider<ItemViewerBloc>(
-                create: (ctx) => GetIt.I<ItemViewerBloc>(),
-                child: ItemPage(item: item),
-              ),
-            ),
-          );
+          context.push('/product', extra: item);
         },
         child: Container(
           width: double.infinity,

@@ -6,7 +6,7 @@ class BottomBar extends StatelessWidget {
   final double price;
   final VoidCallback onAddToCart;
 
-  const BottomBar({Key? key, required this.price, required this.onAddToCart}) : super(key: key);
+  const BottomBar({super.key, required this.price, required this.onAddToCart});
 
   @override
   Widget build(BuildContext context) {

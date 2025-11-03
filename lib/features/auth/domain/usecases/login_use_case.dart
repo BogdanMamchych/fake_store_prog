@@ -1,4 +1,4 @@
-import 'package:fake_store_prog/features/auth/domain/repositories/i_auth_repository.dart';
+import 'package:fake_store_prog/core/repositories/i_auth_repository.dart';
 import 'package:injectable/injectable.dart';
 
 @injectable
@@ -10,5 +10,5 @@ class LoginUseCase {
     required String username,
     required String password,
   }) async {
-    repository.login(username: username, password: password);  }
+    await repository.login(username: username, password: password);  }
 }

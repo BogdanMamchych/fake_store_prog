@@ -10,17 +10,21 @@
 
 // ignore_for_file: no_leading_underscores_for_library_prefixes
 import 'package:fake_store_prog/core/api/api_client.dart' as _i58;
+import 'package:fake_store_prog/core/di/register_module.dart' as _i684;
 import 'package:fake_store_prog/core/local/user_preferences.dart' as _i540;
+import 'package:fake_store_prog/core/repositories/i_auth_repository.dart'
+    as _i478;
 import 'package:fake_store_prog/core/repositories/i_cart_repository.dart'
     as _i591;
 import 'package:fake_store_prog/core/usecases/add_to_cart_use_case.dart'
     as _i1067;
+import 'package:fake_store_prog/core/usecases/log_out_use_case.dart' as _i663;
+import 'package:fake_store_prog/features/auth/data/datasources/auth_local_data_source.dart'
+    as _i724;
 import 'package:fake_store_prog/features/auth/data/datasources/auth_remote_data_source.dart'
     as _i371;
 import 'package:fake_store_prog/features/auth/data/repositories/auth_repository.dart'
     as _i110;
-import 'package:fake_store_prog/features/auth/domain/repositories/i_auth_repository.dart'
-    as _i267;
 import 'package:fake_store_prog/features/auth/domain/usecases/login_use_case.dart'
     as _i172;
 import 'package:fake_store_prog/features/auth/presentation/bloc/auth_bloc.dart'
@@ -63,6 +67,7 @@ import 'package:fake_store_prog/features/item_viewer/domain/usecases/add_item_us
     as _i111;
 import 'package:fake_store_prog/features/item_viewer/presentation/bloc/item_viewer_bloc.dart'
     as _i554;
+import 'package:flutter_secure_storage/flutter_secure_storage.dart' as _i558;
 import 'package:get_it/get_it.dart' as _i174;
 import 'package:injectable/injectable.dart' as _i526;
 
@@ -73,7 +78,9 @@ extension GetItInjectableX on _i174.GetIt {
     _i526.EnvironmentFilter? environmentFilter,
   }) {
     final gh = _i526.GetItHelper(this, environment, environmentFilter);
+    final registerModule = _$RegisterModule();
     gh.factory<_i865.GetTotalPriceUseCase>(() => _i865.GetTotalPriceUseCase());
+    gh.factory<_i558.FlutterSecureStorage>(() => registerModule.secureStorage);
     gh.lazySingleton<_i58.ApiClient>(() => _i58.ApiClient());
     gh.lazySingleton<_i540.UserPreferences>(() => _i540.UserPreferences());
     gh.lazySingleton<_i626.CartLocalDataSource>(
@@ -83,6 +90,12 @@ extension GetItInjectableX on _i174.GetIt {
       () => _i922.ProductListRemoteDataSource(
         gh<_i58.ApiClient>(),
         gh<_i540.UserPreferences>(),
+      ),
+    );
+    gh.lazySingleton<_i724.AuthLocalDataSource>(
+      () => _i724.AuthLocalDataSource(
+        gh<_i540.UserPreferences>(),
+        gh<_i558.FlutterSecureStorage>(),
       ),
     );
     gh.factory<_i934.CartRemoteDataSource>(
@@ -97,10 +110,10 @@ extension GetItInjectableX on _i174.GetIt {
         userPreferences: gh<_i540.UserPreferences>(),
       ),
     );
-    gh.lazySingleton<_i267.IAuthRepository>(
+    gh.lazySingleton<_i478.IAuthRepository>(
       () => _i110.AuthRepository(
-        remote: gh<_i371.AuthRemoteDataSource>(),
-        userPreferences: gh<_i540.UserPreferences>(),
+        authRemoteData: gh<_i371.AuthRemoteDataSource>(),
+        authLocalData: gh<_i724.AuthLocalDataSource>(),
       ),
     );
     gh.lazySingleton<_i591.ICartRepository>(
@@ -122,7 +135,10 @@ extension GetItInjectableX on _i174.GetIt {
       ),
     );
     gh.factory<_i172.LoginUseCase>(
-      () => _i172.LoginUseCase(gh<_i267.IAuthRepository>()),
+      () => _i172.LoginUseCase(gh<_i478.IAuthRepository>()),
+    );
+    gh.factory<_i663.LogOutUseCase>(
+      () => _i663.LogOutUseCase(authRepository: gh<_i478.IAuthRepository>()),
     );
     gh.factory<_i1067.AddToCartUseCase>(
       () =>
@@ -153,14 +169,17 @@ extension GetItInjectableX on _i174.GetIt {
     gh.factory<_i111.AddItemUseCase>(
       () => _i111.AddItemUseCase(cartRepository: gh<_i591.ICartRepository>()),
     );
+    gh.factory<_i651.AuthBloc>(
+      () => _i651.AuthBloc(
+        logOutUseCase: gh<_i663.LogOutUseCase>(),
+        loginUseCase: gh<_i172.LoginUseCase>(),
+      ),
+    );
     gh.factory<_i279.ConfirmCartUseCase>(
       () => _i279.ConfirmCartUseCase(
         cartRepository: gh<_i591.ICartRepository>(),
         userPreferences: gh<_i540.UserPreferences>(),
       ),
-    );
-    gh.factory<_i651.AuthBloc>(
-      () => _i651.AuthBloc(loginUseCase: gh<_i172.LoginUseCase>()),
     );
     gh.factory<_i53.CartBloc>(
       () => _i53.CartBloc(
@@ -179,3 +198,5 @@ extension GetItInjectableX on _i174.GetIt {
     return this;
   }
 }
+
+class _$RegisterModule extends _i684.RegisterModule {}

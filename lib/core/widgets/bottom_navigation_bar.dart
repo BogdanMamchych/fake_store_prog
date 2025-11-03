@@ -1,59 +1,102 @@
-import 'package:fake_store_prog/features/cart/presentation/bloc/cart_bloc.dart';
-import 'package:fake_store_prog/features/cart/presentation/bloc/cart_event.dart';
-import 'package:fake_store_prog/features/cart/presentation/ui/cart_page.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:get_it/get_it.dart';
+import 'package:go_router/go_router.dart';
 
 class BottomNavBar extends StatelessWidget {
   const BottomNavBar({super.key});
 
+  static const double _height = 64.0;
+
   @override
   Widget build(BuildContext context) {
+    String location = '/';
+      final config = GoRouter.of(context).routerDelegate.currentConfiguration;
+      location = config.uri.toString();
+
+
+    final bool isCart = location.startsWith('/cart');
+    final int selectedIndex = isCart ? 1 : 0;
+
+    final theme = Theme.of(context);
+    final selectedColor = theme.colorScheme.onPrimary == Colors.black
+        ? theme.colorScheme.primary
+        : theme.colorScheme.primary;
+    final unselectedColor = Colors.black54;
+
+    Widget buildItem({
+      required IconData icon,
+      required int index,
+      required VoidCallback onTap,
+    }) {
+      final bool selected = index == selectedIndex;
+
+      // Стиль контейнера для підсвітки самої іконки
+      final Decoration selectedDecoration = BoxDecoration(
+        color: Colors.white, // фон всередині рамки (за потреби змінити)
+        border: Border.all(color: selectedColor, width: 1.6),
+        borderRadius: BorderRadius.circular(10),
+        boxShadow: const [
+          BoxShadow(color: Color(0x08000000), blurRadius: 4, offset: Offset(0, 1)),
+        ],
+      );
+
+      return Expanded(
+        child: InkWell(
+          customBorder: const StadiumBorder(),
+          onTap: onTap,
+          child: SizedBox(
+            height: _height,
+            child: Center(
+              child: AnimatedContainer(
+                duration: const Duration(milliseconds: 180),
+                padding: selected ? const EdgeInsets.all(8) : EdgeInsets.zero,
+                decoration: selected ? selectedDecoration : null,
+                child: Icon(
+                  icon,
+                  size: 24,
+                  color: selected ? selectedColor : unselectedColor,
+                ),
+              ),
+            ),
+          ),
+        ),
+      );
+    }
+
     return Container(
       color: Colors.white,
       child: SafeArea(
         top: false,
         child: Container(
-          height: 56,
+          height: _height,
+          padding: const EdgeInsets.symmetric(horizontal: 12),
           decoration: const BoxDecoration(
             color: Colors.white,
-            border: Border(top: BorderSide(color: Color(0xFFF8F7FA), width: 1)),
+            boxShadow: [
+              BoxShadow(color: Color(0x11000000), blurRadius: 4, offset: Offset(0, -1)),
+            ],
           ),
-          child: Padding(
-            padding: const EdgeInsets.symmetric(horizontal: 48.0),
-            child: Row(
-              mainAxisAlignment: MainAxisAlignment.spaceBetween,
-              children: [
-                Column(
-                  mainAxisSize: MainAxisSize.min,
-                  children: const [
-                    Icon(Icons.home, size: 24),
-                    SizedBox(height: 4),
-                  ],
-                ),
-                Column(
-                  mainAxisSize: MainAxisSize.min,
-                  children: [
-                    IconButton(
-                      onPressed: () {
-                        Navigator.push(
-                                context,
-                                MaterialPageRoute(
-                                  builder: (context) => BlocProvider<CartBloc>(
-                                    create: (ctx) => GetIt.I<CartBloc>()..add(FetchCartEvent()),
-                                    child: CartPage(),
-                                  ),
-                                ),
-                              );
-                      },
-                      icon: Icon(Icons.shopping_cart, size: 24),
-                    ),
-                    SizedBox(height: 4),
-                  ],
-                ),
-              ],
-            ),
+          child: Row(
+            crossAxisAlignment: CrossAxisAlignment.center,
+            children: [
+              buildItem(
+                icon: Icons.home_outlined,
+                index: 0,
+                onTap: () {
+                  if (selectedIndex != 0) {
+                    context.go('/');
+                  }
+                },
+              ),
+              buildItem(
+                icon: Icons.shopping_bag_outlined,
+                index: 1,
+                onTap: () {
+                  if (selectedIndex != 1) {
+                    context.go('/cart');
+                  }
+                },
+              ),
+            ],
           ),
         ),
       ),

@@ -41,7 +41,7 @@ class Header extends StatelessWidget {
                   ),
                 ),
 
-          logoutButton(),
+          const LogoutButton(),
         ],
       ),
     );

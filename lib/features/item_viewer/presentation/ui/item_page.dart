@@ -1,4 +1,4 @@
-import 'package:fake_store_prog/core/models/item.dart';
+﻿import 'package:fake_store_prog/core/models/item.dart';
 import 'package:fake_store_prog/core/usecases/add_to_cart_use_case.dart';
 import 'package:fake_store_prog/features/item_viewer/presentation/bloc/item_viewer_bloc.dart';
 import 'package:fake_store_prog/features/item_viewer/presentation/bloc/item_viewer_state.dart';
@@ -9,6 +9,8 @@ import 'package:fake_store_prog/features/item_viewer/widgets/product_image.dart'
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:fake_store_prog/core/di/injection.dart';
+import 'package:go_router/go_router.dart';
+
 
 class ItemPage extends StatelessWidget {
   final Item item;
@@ -32,7 +34,7 @@ class ItemPage extends StatelessWidget {
           child: Column(
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: [
-              Header(onBack: () => Navigator.pop(context), isFavorite: false),
+              Header(onBack: () => context.pop(), isFavorite: false),
 
               ItemImage(imageUrl: item.imageURL),
 
