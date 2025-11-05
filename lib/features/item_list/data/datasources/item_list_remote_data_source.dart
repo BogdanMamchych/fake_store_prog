@@ -1,5 +1,3 @@
-// features/product_list/data/datasources/product_list_remote_data_source.dart
-
 import 'package:dio/dio.dart';
 import 'package:fake_store_prog/core/api/api_client.dart';
 import 'package:fake_store_prog/core/local/user_preferences.dart';
@@ -9,20 +7,20 @@ import 'package:injectable/injectable.dart';
 import '../../../../core/local/exceptions.dart';
 
 @lazySingleton
-class ProductListRemoteDataSource {
+class ItemListRemoteDataSource {
   final ApiClient _apiClient;
   final UserPreferences _userPreferences;
-  ProductListRemoteDataSource(this._apiClient, this._userPreferences);
+  ItemListRemoteDataSource(this._apiClient, this._userPreferences);
 
-  Future<List<Item>> fetchProducts() async {
+  Future<List<Item>> fetchItems() async {
     try {
       final response = await _apiClient.fetchItems();
 
       if (response.statusCode == 200) {
         final List<dynamic> data = response.data;
         try {
-          final products = data.map((json) => Item.fromJson(json)).toList();
-          return products;
+          final items = data.map((json) => Item.fromJson(json)).toList();
+          return items;
         } on FormatException catch (fe) {
           throw ParsingException(fe.message);
         } on TypeError catch (te) {
@@ -30,14 +28,13 @@ class ProductListRemoteDataSource {
         }
       }
 
-      // Інші HTTP-коди — мапимо в доменні ексепшени
       final status = response.statusCode;
       if (status != null && status >= 500) {
         throw ServerException(status, 'Server error: $status');
       } else if (status == 401) {
         throw UnauthorizedException('Unauthorized');
       } else if (status == 404) {
-        throw NotFoundException('Products not found');
+        throw NotFoundException('Items not found');
       } else {
         throw NetworkException('Unexpected HTTP status ${status ?? 'unknown'}');
       }

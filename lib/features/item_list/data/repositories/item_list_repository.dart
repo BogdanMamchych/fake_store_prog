@@ -2,17 +2,17 @@ import 'package:fake_store_prog/core/local/app_constants.dart';
 import 'package:fake_store_prog/core/local/exceptions.dart';
 import 'package:fake_store_prog/core/local/user_preferences.dart';
 import 'package:fake_store_prog/core/models/user.dart';
-import 'package:fake_store_prog/features/item_list/data/datasources/product_list_remote_data_source.dart';
+import 'package:fake_store_prog/features/item_list/data/datasources/item_list_remote_data_source.dart';
 import 'package:fake_store_prog/core/models/item.dart';
-import 'package:fake_store_prog/features/item_list/domain/repositories/i_product_list_repository.dart';
+import 'package:fake_store_prog/features/item_list/domain/repositories/i_item_list_repository.dart';
 import 'package:injectable/injectable.dart';
 
-@LazySingleton(as: IProductListRepository)
-class ProductListRepository implements IProductListRepository {
-  final ProductListRemoteDataSource remoteDataSource;
+@LazySingleton(as: IItemListRepository)
+class ItemListRepository implements IItemListRepository {
+  final ItemListRemoteDataSource remoteDataSource;
   final UserPreferences userPreferences;
 
-  ProductListRepository({
+  ItemListRepository({
     required this.remoteDataSource,
     required this.userPreferences,
   });
@@ -20,7 +20,7 @@ class ProductListRepository implements IProductListRepository {
   @override
   Future<List<Item>> fetchProductList({int page = 1, int limit = AppConstants.itemsPerPage}) async {
     try {
-      final all = await remoteDataSource.fetchProducts();
+      final all = await remoteDataSource.fetchItems();
 
       final start = (page - 1) * limit;
       if (start >= all.length) return <Item>[];

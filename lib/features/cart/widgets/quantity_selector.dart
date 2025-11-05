@@ -1,4 +1,5 @@
 import 'package:fake_store_prog/features/cart/widgets/icon_btn.dart';
+import 'package:fake_store_prog/core/styles/text_styles.dart';
 import 'package:flutter/material.dart';
 
 class QuantitySelector extends StatelessWidget {
@@ -32,11 +33,7 @@ class QuantitySelector extends StatelessWidget {
             padding: const EdgeInsets.symmetric(horizontal: 12.0),
             child: Text(
               '$value',
-              style: const TextStyle(
-                fontFamily: 'urbanist',
-                fontWeight: FontWeight.w600,
-                fontSize: 14,
-              ),
+              style: quantitySelectorValueStyle,
             ),
           ),
           Container(width: 1, height: 36, color: const Color(0xFFD9D9D9)),

@@ -51,14 +51,14 @@ import 'package:fake_store_prog/features/cart/domain/usecases/remove_item_use_ca
     as _i205;
 import 'package:fake_store_prog/features/cart/presentation/bloc/cart_bloc.dart'
     as _i53;
-import 'package:fake_store_prog/features/item_list/data/datasources/product_list_remote_data_source.dart'
-    as _i922;
-import 'package:fake_store_prog/features/item_list/data/repositories/product_list_repository.dart'
-    as _i988;
-import 'package:fake_store_prog/features/item_list/domain/repositories/i_product_list_repository.dart'
-    as _i739;
+import 'package:fake_store_prog/features/item_list/data/datasources/item_list_remote_data_source.dart'
+    as _i815;
+import 'package:fake_store_prog/features/item_list/data/repositories/item_list_repository.dart'
+    as _i585;
+import 'package:fake_store_prog/features/item_list/domain/repositories/i_item_list_repository.dart'
+    as _i914;
 import 'package:fake_store_prog/features/item_list/domain/usecases/fetch_items_use_case.dart'
-    as _i671;
+    as _i1071;
 import 'package:fake_store_prog/features/item_list/domain/usecases/get_user_use_case.dart'
     as _i293;
 import 'package:fake_store_prog/features/item_list/presentation/bloc/item_list_bloc.dart'
@@ -86,8 +86,8 @@ extension GetItInjectableX on _i174.GetIt {
     gh.lazySingleton<_i626.CartLocalDataSource>(
       () => _i626.CartLocalDataSource(gh<_i540.UserPreferences>()),
     );
-    gh.lazySingleton<_i922.ProductListRemoteDataSource>(
-      () => _i922.ProductListRemoteDataSource(
+    gh.lazySingleton<_i815.ItemListRemoteDataSource>(
+      () => _i815.ItemListRemoteDataSource(
         gh<_i58.ApiClient>(),
         gh<_i540.UserPreferences>(),
       ),
@@ -104,12 +104,6 @@ extension GetItInjectableX on _i174.GetIt {
     gh.lazySingleton<_i371.AuthRemoteDataSource>(
       () => _i371.AuthRemoteDataSource(gh<_i58.ApiClient>()),
     );
-    gh.lazySingleton<_i739.IProductListRepository>(
-      () => _i988.ProductListRepository(
-        remoteDataSource: gh<_i922.ProductListRemoteDataSource>(),
-        userPreferences: gh<_i540.UserPreferences>(),
-      ),
-    );
     gh.lazySingleton<_i478.IAuthRepository>(
       () => _i110.AuthRepository(
         authRemoteData: gh<_i371.AuthRemoteDataSource>(),
@@ -122,15 +116,21 @@ extension GetItInjectableX on _i174.GetIt {
         remoteDataSource: gh<_i934.CartRemoteDataSource>(),
       ),
     );
-    gh.factory<_i671.FetchItemsUseCase>(
-      () => _i671.FetchItemsUseCase(gh<_i739.IProductListRepository>()),
+    gh.lazySingleton<_i914.IItemListRepository>(
+      () => _i585.ItemListRepository(
+        remoteDataSource: gh<_i815.ItemListRemoteDataSource>(),
+        userPreferences: gh<_i540.UserPreferences>(),
+      ),
     );
     gh.factory<_i293.GetUserUseCase>(
-      () => _i293.GetUserUseCase(gh<_i739.IProductListRepository>()),
+      () => _i293.GetUserUseCase(gh<_i914.IItemListRepository>()),
+    );
+    gh.factory<_i1071.FetchItemsUseCase>(
+      () => _i1071.FetchItemsUseCase(gh<_i914.IItemListRepository>()),
     );
     gh.factory<_i217.ItemListBloc>(
       () => _i217.ItemListBloc(
-        fetchProductsUseCase: gh<_i671.FetchItemsUseCase>(),
+        fetchProductsUseCase: gh<_i1071.FetchItemsUseCase>(),
         getUserUseCase: gh<_i293.GetUserUseCase>(),
       ),
     );

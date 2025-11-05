@@ -23,8 +23,8 @@ class LogoutButton extends StatelessWidget {
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
             Container(
-              width: 48,
-              height: 48,
+              width: 32,
+              height: 32,
               decoration: const BoxDecoration(
                 color: Color(0xFFFFF3CC),
                 shape: BoxShape.circle,
@@ -38,10 +38,10 @@ class LogoutButton extends StatelessWidget {
               ),
             ),
 
-            const SizedBox(height: 8),
+            const SizedBox(height: 2),
             Text(
               'Log out',
-              style: buttonTextStyle.copyWith(color: Colors.black),
+              style: logoutTextStyle,
               overflow: TextOverflow.ellipsis,
             ),
           ],

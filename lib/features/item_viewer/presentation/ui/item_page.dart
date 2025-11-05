@@ -31,32 +31,36 @@ class ItemPage extends StatelessWidget {
       child: Scaffold(
         backgroundColor: backgroundColor,
         body: SafeArea(
-          child: Column(
-            mainAxisAlignment: MainAxisAlignment.spaceBetween,
-            children: [
-              Header(onBack: () => context.pop(), isFavorite: false),
+          child: Padding(
+            padding: const EdgeInsets.only(top: 56),
+            child: Column(
+              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+              crossAxisAlignment: CrossAxisAlignment.center,
+              children: [
+                Header(onBack: () => context.pop(), isFavorite: false),
 
-              ItemImage(imageUrl: item.imageURL),
+                ItemImage(imageUrl: item.imageURL),
 
-              InfoCard(item: item),
+                InfoCard(item: item),
 
-              BottomBar(
-                price: item.price,
-                onAddToCart: () async {
-                  try {
-                    final addToCart = getIt<AddToCartUseCase>();
-                    await addToCart(item);
-                    ScaffoldMessenger.of(context).showSnackBar(
-                      const SnackBar(content: Text('Item added to cart')),
-                    );
-                  } catch (e) {
-                    ScaffoldMessenger.of(
-                      context,
-                    ).showSnackBar(SnackBar(content: Text('Error: $e')));
-                  }
-                },
-              ),
-            ],
+                BottomBar(
+                  price: item.price,
+                  onAddToCart: () async {
+                    try {
+                      final addToCart = getIt<AddToCartUseCase>();
+                      await addToCart(item);
+                      ScaffoldMessenger.of(context).showSnackBar(
+                        const SnackBar(content: Text('Item added to cart')),
+                      );
+                    } catch (e) {
+                      ScaffoldMessenger.of(
+                        context,
+                      ).showSnackBar(SnackBar(content: Text('Error: $e')));
+                    }
+                  },
+                ),
+              ],
+            ),
           ),
         ),
       ),

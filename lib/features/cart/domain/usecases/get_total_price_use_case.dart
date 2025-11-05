@@ -16,14 +16,14 @@ class GetTotalPriceUseCase {
     int totalCents = 0;
 
     for (final ci in cartItems) {
-      final product = itemById[ci.itemId];
-      if (product == null) {
-        if (product == null) {
-          throw ItemNotFoundException('Product ${ci.itemId} not found');
+      final item = itemById[ci.itemId];
+      if (item == null) {
+        if (item == null) {
+          throw ItemNotFoundException('Item ${ci.itemId} not found');
         }
       }
 
-      final price = product.price;
+      final price = item.price;
 
       final cents = (price * 100).round();
       totalCents += cents * ci.quantity;

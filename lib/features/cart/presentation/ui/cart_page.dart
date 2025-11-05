@@ -1,4 +1,4 @@
-import 'package:fake_store_prog/core/widgets/bottom_navigation_bar.dart';
+import 'package:fake_store_prog/core/widgets/bottom_nav_bar.dart';
 import 'package:fake_store_prog/features/cart/widgets/quantity_selector.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -6,8 +6,8 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:fake_store_prog/features/cart/presentation/bloc/cart_bloc.dart';
 import 'package:fake_store_prog/features/cart/presentation/bloc/cart_event.dart';
 import 'package:fake_store_prog/features/cart/presentation/bloc/cart_state.dart';
-import 'package:fake_store_prog/core/widgets/header.dart';
 import 'package:fake_store_prog/core/models/cart_item.dart';
+import 'package:fake_store_prog/core/styles/text_styles.dart';
 
 class CartPage extends StatelessWidget {
   const CartPage({super.key});
@@ -22,11 +22,30 @@ class CartPage extends StatelessWidget {
           child: Column(
             children: [
               SizedBox(
-                height: 183,
+                height: 104,
                 width: double.infinity,
                 child: Padding(
-                  padding: const EdgeInsets.symmetric(horizontal: 24.0),
-                  child: Header(headerText: "Cart"),
+                  padding: const EdgeInsets.only(left: 24.0, right: 24.0, top: 56.0),
+                  child: Row(
+                    crossAxisAlignment: CrossAxisAlignment.center,
+                    children: [
+                      Text('Cart', style: headerTextStyle),
+                      const Spacer(),
+                      Container(
+                        width: 32,
+                        height: 32,
+                        decoration: BoxDecoration(
+                          color: const Color(0xFFC4C4C4),
+                          borderRadius: BorderRadius.circular(8),
+                        ),
+                        child: const Icon(
+                          Icons.person,
+                          size: 18,
+                          color: Colors.white,
+                        ),
+                      ),
+                    ],
+                  ),
                 ),
               ),
 
@@ -57,8 +76,7 @@ class CartPage extends StatelessWidget {
                           Expanded(
                             child: ListView.separated(
                               padding: const EdgeInsets.symmetric(vertical: 8),
-                              separatorBuilder: (_, __) =>
-                                  const SizedBox(height: 8),
+                              separatorBuilder: (_, __) => const SizedBox(height: 8),
                               itemCount: items.length,
                               itemBuilder: (context, index) {
                                 final item = items[index];
@@ -77,10 +95,8 @@ class CartPage extends StatelessWidget {
                                   key: ValueKey(item.id),
                                   direction: DismissDirection.endToStart,
                                   background: Container(
-                                    margin: const EdgeInsets.symmetric(
-                                      horizontal: 24,
-                                    ),
-                                    padding: const EdgeInsets.only(right: 24),
+                                    margin: const EdgeInsets.symmetric(horizontal: 0),
+                                    padding: const EdgeInsets.symmetric(horizontal: 40),
                                     alignment: Alignment.centerRight,
                                     decoration: BoxDecoration(
                                       color: const Color(0xFFCC474E),
@@ -94,42 +110,34 @@ class CartPage extends StatelessWidget {
                                   onDismissed: (_) {
                                     if (cartItem != null) {
                                       context.read<CartBloc>().add(
-                                        RemoveItemFromCartRequested(
-                                          cartItem: cartItem,
-                                        ),
-                                      );
+                                            RemoveItemFromCartRequested(
+                                              cartItem: cartItem,
+                                            ),
+                                          );
                                     }
                                   },
                                   child: Container(
-                                    margin: const EdgeInsets.symmetric(
-                                      horizontal: 0,
-                                    ),
-                                    padding: const EdgeInsets.symmetric(
-                                      horizontal: 24,
-                                    ),
+                                    padding: const EdgeInsets.symmetric(horizontal: 24),
+                                    height: 69,
                                     child: Row(
-                                      crossAxisAlignment:
-                                          CrossAxisAlignment.center,
+                                      crossAxisAlignment: CrossAxisAlignment.center,
                                       children: [
                                         ClipRRect(
-                                          borderRadius: BorderRadius.circular(
-                                            4,
-                                          ),
+                                          borderRadius: BorderRadius.circular(4),
                                           child: SizedBox(
                                             width: 70,
                                             height: 70,
                                             child: Image.network(
                                               item.imageURL,
                                               fit: BoxFit.cover,
-                                              errorBuilder: (c, e, s) =>
-                                                  Container(
-                                                    color: Colors.grey.shade200,
-                                                    child: const Icon(
-                                                      Icons.image,
-                                                      size: 30,
-                                                      color: Colors.black26,
-                                                    ),
-                                                  ),
+                                              errorBuilder: (c, e, s) => Container(
+                                                color: Colors.grey.shade200,
+                                                child: const Icon(
+                                                  Icons.image,
+                                                  size: 30,
+                                                  color: Colors.black26,
+                                                ),
+                                              ),
                                             ),
                                           ),
                                         ),
@@ -138,69 +146,66 @@ class CartPage extends StatelessWidget {
 
                                         Expanded(
                                           child: Row(
-                                            mainAxisAlignment:
-                                                MainAxisAlignment.spaceBetween,
+                                            crossAxisAlignment: CrossAxisAlignment.center,
+                                            mainAxisAlignment: MainAxisAlignment.spaceBetween,
                                             children: [
                                               Expanded(
                                                 child: Column(
-                                                  crossAxisAlignment:
-                                                      CrossAxisAlignment.start,
+                                                  mainAxisAlignment: MainAxisAlignment.center,
+                                                  crossAxisAlignment: CrossAxisAlignment.start,
                                                   children: [
                                                     Text(
                                                       item.title,
-                                                      style: const TextStyle(
-                                                        fontFamily: 'Urbanist',
-                                                        fontSize: 16,
-                                                        fontWeight:
-                                                            FontWeight.w600,
-                                                      ),
-                                                      maxLines: 2,
-                                                      overflow:
-                                                          TextOverflow.ellipsis,
+                                                      style: itemCardTitleStyle,
+                                                      maxLines: 1,
+                                                      overflow: TextOverflow.ellipsis,
                                                     ),
                                                     const SizedBox(height: 8),
-                                                    QuantitySelector(
-                                                      value: qty,
-                                                      onIncrease: () {
-                                                        if (cartItem != null) {
-                                                          context
-                                                              .read<CartBloc>()
-                                                              .add(
-                                                                IncreaseItemQuantityRequested(
-                                                                  cartItem:
-                                                                      cartItem,
-                                                                ),
-                                                              );
-                                                        }
-                                                      },
-                                                      onDecrease: () {
-                                                        if (cartItem != null) {
-                                                          context
-                                                              .read<CartBloc>()
-                                                              .add(
-                                                                DecreaseItemQuantityRequested(
-                                                                  cartItem:
-                                                                      cartItem,
-                                                                ),
-                                                              );
-                                                        }
-                                                      },
+
+                                                    Container(
+                                                      width: 134,
+                                                      height: 36,
+                                                      decoration: BoxDecoration(
+                                                        color: Colors.white,
+                                                        border: Border.all(
+                                                          color: const Color(0x1A000000),
+                                                        ),
+                                                        borderRadius: BorderRadius.circular(6),
+                                                      ),
+                                                      child: Center(
+                                                        child: QuantitySelector(
+                                                          value: qty,
+                                                          onIncrease: () {
+                                                            if (cartItem != null) {
+                                                              context.read<CartBloc>().add(
+                                                                    IncreaseItemQuantityRequested(
+                                                                      cartItem: cartItem,
+                                                                    ),
+                                                                  );
+                                                            }
+                                                          },
+                                                          onDecrease: () {
+                                                            if (cartItem != null) {
+                                                              context.read<CartBloc>().add(
+                                                                    DecreaseItemQuantityRequested(
+                                                                      cartItem: cartItem,
+                                                                    ),
+                                                                  );
+                                                            }
+                                                          },
+                                                        ),
+                                                      ),
                                                     ),
                                                   ],
                                                 ),
                                               ),
 
-                                              // Price
                                               Padding(
-                                                padding: const EdgeInsets.only(
-                                                  left: 12.0,
-                                                ),
+                                                padding: const EdgeInsets.only(left: 12.0),
                                                 child: Text(
                                                   '\$${(item.price).toStringAsFixed(2)}',
-                                                  style: const TextStyle(
-                                                    fontFamily: 'Urbanist',
-                                                    fontSize: 14,
-                                                    fontWeight: FontWeight.w600,
+                                                  style: itemCardPriceStyle.copyWith(
+                                                    color: itemCardPriceStyle.color?.withOpacity(0.9) ?? Colors.black,
                                                   ),
                                                 ),
                                               ),
@@ -215,74 +220,41 @@ class CartPage extends StatelessWidget {
                             ),
                           ),
 
-                          Container(height: 1, color: Colors.black12),
+                          Container(height: 1, color: const Color(0x1A000000)),
 
                           SafeArea(
                             top: false,
                             child: Padding(
-                              padding: const EdgeInsets.symmetric(
-                                horizontal: 24.0,
-                                vertical: 12.0,
-                              ),
+                              padding: const EdgeInsets.symmetric(horizontal: 24.0, vertical: 12.0),
                               child: Row(
                                 children: [
                                   Column(
-                                    crossAxisAlignment:
-                                        CrossAxisAlignment.start,
+                                    crossAxisAlignment: CrossAxisAlignment.start,
                                     children: [
-                                      const Text(
-                                        'Cart total',
-                                        style: TextStyle(
-                                          fontFamily: 'urbanist',
-                                          fontSize: 14,
-                                          fontWeight: FontWeight.w500,
-                                          color: Color(0xFF616161),
-                                        ),
-                                      ),
+                                      Text('Cart total', style: cartTotalLabelStyle),
                                       const SizedBox(height: 4),
-                                      Text(
-                                        '\$${totalPrice.toStringAsFixed(2)}',
-                                        style: const TextStyle(
-                                          fontFamily: 'Urbanist',
-                                          fontSize: 20,
-                                          fontWeight: FontWeight.w600,
-                                          color: Color(0xFF3A3A3A),
-                                        ),
-                                      ),
+                                      Text('\$${totalPrice.toStringAsFixed(2)}', style: priceTextStyle),
                                     ],
                                   ),
                                   const SizedBox(width: 16),
                                   Expanded(
                                     child: ElevatedButton(
                                       style: ElevatedButton.styleFrom(
-                                        backgroundColor: const Color(
-                                          0xFF1E1E1E,
-                                        ),
-                                        padding: const EdgeInsets.symmetric(
-                                          vertical: 14,
-                                        ),
+                                        backgroundColor: const Color(0xFF1E1E1E),
+                                        padding: const EdgeInsets.symmetric(vertical: 14, horizontal: 24),
                                         shape: RoundedRectangleBorder(
-                                          borderRadius: BorderRadius.circular(
-                                            6,
-                                          ),
+                                          borderRadius: BorderRadius.circular(6),
                                         ),
+                                        minimumSize: const Size.fromHeight(48),
                                       ),
                                       onPressed: () {
                                         context.read<CartBloc>().add(
-                                          ConfirmCartRequested(
-                                            cartItemList: cartItems,
-                                          ),
-                                        );
+                                              ConfirmCartRequested(
+                                                cartItemList: cartItems,
+                                              ),
+                                            );
                                       },
-                                      child: const Text(
-                                        'Checkout',
-                                        style: TextStyle(
-                                          fontFamily: 'urbanist',
-                                          fontSize: 16,
-                                          fontWeight: FontWeight.w600,
-                                          color: Colors.white,
-                                        ),
-                                      ),
+                                      child: const Text('Checkout', style: buttonTextStyle),
                                     ),
                                   ),
                                 ],
@@ -296,7 +268,8 @@ class CartPage extends StatelessWidget {
                   },
                 ),
               ),
-              BottomNavBar(),
+
+              const BottomNavBar(),
             ],
           ),
         ),

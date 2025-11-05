@@ -4,15 +4,15 @@ class Cart {
   final int id;
   final int userId;
   final DateTime date;
-  List<CartItem> products;
+  List<CartItem> items;
 
-  Cart({required this.id, required this.userId, required this.date, required this.products});
+  Cart({required this.id, required this.userId, required this.date, required this.items});
 
   Map<String,dynamic> toJson() => {
     'id': id,
     'userId': userId,
     'date': date.toIso8601String(),
-    'products': products.map((p) => p.toJson()).toList(),
+    'products': items.map((p) => p.toJson()).toList(),
   };
 
   

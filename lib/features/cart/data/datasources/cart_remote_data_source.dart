@@ -21,18 +21,18 @@ class CartRemoteDataSource {
           try {
             return Item.fromJson(data);
           } catch (e) {
-            throw ParsingException('Failed to parse product JSON: $e');
+            throw ParsingException('Failed to parse item JSON: $e');
           }
         } else {
           throw ParsingException(
-            'Expected product JSON object, got: ${data.runtimeType}',
+            'Expected item JSON object, got: ${data.runtimeType}',
           );
         }
       } else if (status == 404) {
-        throw NotFoundException('Product with id $id not found (404)');
+        throw NotFoundException('Item with id $id not found (404)');
       } else if (status == 401 || status == 403) {
         throw UnauthorizedException(
-          'Unauthorized access when fetching product $id (status: $status)',
+          'Unauthorized access when fetching item $id (status: $status)',
         );
       } else {
         throw ServerException(status, response.statusMessage ?? 'Server error');
@@ -41,7 +41,7 @@ class CartRemoteDataSource {
       throw _mapDioException(dioErr);
     } catch (e) {
       throw UnexpectedException(
-        'Unexpected error while fetching product $id: $e',
+        'Unexpected error while fetching item $id: $e',
       );
     }
   }
@@ -77,7 +77,6 @@ class CartRemoteDataSource {
   }
 
   Exception _mapDioException(DioException dioErr) {
-  // 1) Таймаути / cancel / connectionError
   final type = dioErr.type;
   if (type == DioExceptionType.connectionTimeout ||
       type == DioExceptionType.receiveTimeout ||

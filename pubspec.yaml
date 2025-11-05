@@ -35,5 +35,19 @@ flutter:
   fonts:
     - family: Urbanist
       fonts:
+        - asset: assets/fonts/Urbanist-Regular.ttf
         - asset: assets/fonts/Urbanist-SemiBold.ttf
           weight: 600
+    - family: Lato
+      fonts:
+        - asset: assets/fonts/Lato-Bold.ttf
+          weight: 700
+    - family: Inter
+      fonts:
+      - asset: assets/fonts/Inter-Regular.ttf
+      - asset: assets/fonts/Inter-Medium.ttf
+        weight: 500
+    - family: Lora
+      fonts:
+      - asset: assets/fonts/Lora-SemiBold.ttf
+        weight: 600

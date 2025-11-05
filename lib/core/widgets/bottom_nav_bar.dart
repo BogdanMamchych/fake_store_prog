@@ -29,9 +29,8 @@ class BottomNavBar extends StatelessWidget {
     }) {
       final bool selected = index == selectedIndex;
 
-      // Стиль контейнера для підсвітки самої іконки
       final Decoration selectedDecoration = BoxDecoration(
-        color: Colors.white, // фон всередині рамки (за потреби змінити)
+        color: Colors.white,
         border: Border.all(color: selectedColor, width: 1.6),
         borderRadius: BorderRadius.circular(10),
         boxShadow: const [

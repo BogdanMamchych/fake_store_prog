@@ -1,5 +1,5 @@
-import 'package:fake_store_prog/core/widgets/logout_button.dart';
 import 'package:fake_store_prog/core/styles/text_styles.dart';
+import 'package:fake_store_prog/core/widgets/logout_button.dart';
 import 'package:flutter/material.dart';
 
 class Header extends StatelessWidget {
@@ -9,39 +9,35 @@ class Header extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return SizedBox(
-      height: 72,
-      child: Row(
-        crossAxisAlignment: CrossAxisAlignment.center,
+    return Container(
+      width: double.infinity,
+      height: 183,
+      padding: const EdgeInsets.only(top: 56, left: 24, right: 24),
+      child: Column(
+        crossAxisAlignment: CrossAxisAlignment.stretch,
         children: [
-          username != "" && headerText.startsWith("Welcome")
-              ? Expanded(
+          SizedBox(
+            height: 60,
+            child: Row(
+              crossAxisAlignment: CrossAxisAlignment.center,
+              children: [
+                Expanded(
                   child: Column(
                     mainAxisAlignment: MainAxisAlignment.center,
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
-                      Text(
-                        'Welcome,',
-                        style: mainTextStyle.copyWith(fontSize: 24),
-                        overflow: TextOverflow.ellipsis,
-                      ),
-                      Text(
-                        username,
-                        style: mainTextStyle.copyWith(fontSize: 24),
-                        overflow: TextOverflow.ellipsis,
-                      ),
+                      Text(headerText, style: headerTextStyle),
+                      if (username.isNotEmpty)
+                        Text(username, style: headerTextStyle),
                     ],
                   ),
-                )
-              : Expanded(
-                  child: Text(
-                    headerText,
-                    style: mainTextStyle.copyWith(fontSize: 24),
-                    overflow: TextOverflow.ellipsis,
-                  ),
                 ),
+                const LogoutButton(),
+              ],
+            ),
+          ),
 
-          const LogoutButton(),
+          const SizedBox(height: 16),
         ],
       ),
     );

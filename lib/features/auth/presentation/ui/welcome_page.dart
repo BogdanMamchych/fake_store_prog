@@ -12,38 +12,82 @@ class WelcomePage extends StatelessWidget {
       body: Stack(
         fit: StackFit.expand,
         children: [
-          Image.asset('assets/images/welcome_page_bg.png', fit: BoxFit.cover),
-          Positioned(
-            top: MediaQuery.of(context).size.height * 0.55,
-            left: 0,
-            right: 0,
-            child: Column(
-              crossAxisAlignment: CrossAxisAlignment.center,
-              mainAxisSize: MainAxisSize.min,
-              children: [
-                Container(
-                  width: 58,
-                  height: 58,
-                  decoration: BoxDecoration(shape: BoxShape.circle),
-                  child: Image.asset('assets/images/fake_store_logo.png'),
-                ),
-                const SizedBox(height: 10),
-                const Text('Fake Store', style: mainTextStyle),
-                const SizedBox(height: 20),
-                Padding(
-                  padding: const EdgeInsets.symmetric(horizontal: 24.0),
-                  child: SizedBox(
-                    width: 342,
-                    height: 48,
-                    child: CustomElevatedButton(
-                      text: 'Get Started',
-                      onPressed: () {
-                        context.push('/login');
-                      },
+          Positioned.fill(
+            child: Image.asset(
+              'assets/images/welcome_page_bg.png',
+              fit: BoxFit.cover,
+            ),
+          ),
+
+          Center(
+            child: SizedBox(
+              width: 375,
+              height: 812,
+              child: Stack(
+                children: [
+                  Positioned(
+                    left: 159,
+                    top: 448,
+                    child: Container(
+                      width: 58,
+                      height: 58,
+                      decoration: BoxDecoration(
+                        shape: BoxShape.circle,
+                        gradient: const LinearGradient(
+                          begin: Alignment.centerLeft,
+                          end: Alignment.centerRight,
+                          colors: [Color(0xFFF4D374), Color(0xFFF4D374)],
+                        ),
+                        border: Border.all(color: const Color(0xFFF4D374)),
+                      ),
+                      child: Padding(
+                        padding: const EdgeInsets.all(3.0),
+                        child: Container(
+                          width: 58,
+                          height: 58,
+                          decoration: BoxDecoration(
+                            shape: BoxShape.circle,
+                            color: Colors.white,
+                            border: Border.all(color: const Color(0xFFF4D374), width: 1),
+                          ),
+                          child: Center(
+                            child: Image.asset(
+                              'assets/images/fake_store_logo.png',
+                              width: 58,
+                              height: 58,
+                              fit: BoxFit.contain,
+                            ),
+                          ),
+                        ),
+                      ),
                     ),
                   ),
-                ),
-              ],
+
+                  Positioned(
+                    left: 118,
+                    top: 523,
+                    child: Text(
+                      'Fake Store',
+                      style: mainTextStyle,
+                    ),
+                  ),
+
+                  Positioned(
+                    left: 18,
+                    right: 15,
+                    top: 598,
+                    child: SizedBox(
+                      height: 48,
+                      child: CustomElevatedButton(
+                        text: 'Get Started',
+                        onPressed: () {
+                          context.push('/login');
+                        },
+                      ),
+                    ),
+                  ),
+                ],
+              ),
             ),
           ),
         ],

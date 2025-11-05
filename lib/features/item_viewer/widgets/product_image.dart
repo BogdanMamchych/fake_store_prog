@@ -16,6 +16,13 @@ class ItemImage extends StatelessWidget {
               image: NetworkImage(imageUrl),
               fit: BoxFit.contain,
             ),
+            boxShadow: [
+              BoxShadow(
+                color: Colors.black.withOpacity(0.15),
+                offset: const Offset(0, 7),
+                blurRadius: 7,
+              ),
+            ],
           ),
         ),
       ),

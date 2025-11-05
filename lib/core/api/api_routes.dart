@@ -10,12 +10,4 @@ class ApiRoutes {
   static const String authLogin = '/auth/login';
 
   static const String carts = '/carts';   
-
-  static String withQuery(String url, Map<String, dynamic> query) {
-    if (query.isEmpty) return url;
-    query.entries
-        .map((e) => '${Uri.encodeComponent(e.key)}=${Uri.encodeComponent(e.value.toString())}')
-        .join('&');
-    return '\$url?\$params';
-  }
 }

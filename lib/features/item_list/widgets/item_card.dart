@@ -3,7 +3,6 @@ import 'package:fake_store_prog/core/styles/text_styles.dart';
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 
-
 class ItemCard extends StatelessWidget {
   final Item item;
   const ItemCard({super.key, required this.item});
@@ -11,12 +10,13 @@ class ItemCard extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Material(
+      color: Colors.transparent,
       child: InkWell(
         onTap: () {
           context.push('/product', extra: item);
         },
         child: Container(
-          width: double.infinity,
+          width: 342,
           height: 121,
           decoration: BoxDecoration(
             color: const Color.fromRGBO(0, 0, 0, 0.05),
@@ -40,10 +40,13 @@ class ItemCard extends StatelessWidget {
                   ),
                 ),
               ),
-        
+
               Expanded(
                 child: Padding(
-                  padding: const EdgeInsets.symmetric(vertical: 12.0, horizontal: 16.0),
+                  padding: const EdgeInsets.symmetric(
+                    vertical: 12.0,
+                    horizontal: 16.0,
+                  ),
                   child: Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
@@ -57,14 +60,14 @@ class ItemCard extends StatelessWidget {
                               children: [
                                 Text(
                                   item.title,
-                                  style: buttonTextStyle,
+                                  style: itemCardTitleStyle,
                                   maxLines: 1,
                                   overflow: TextOverflow.ellipsis,
                                 ),
                                 const SizedBox(height: 4),
                                 Text(
                                   item.description,
-                                  style: labelTextStyle,
+                                  style: itemCardDescriptionStyle,
                                   maxLines: 2,
                                   overflow: TextOverflow.ellipsis,
                                 ),
@@ -73,18 +76,24 @@ class ItemCard extends StatelessWidget {
                           ),
                         ],
                       ),
-        
-                      Row(
-                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+
+                      Column(
+                        crossAxisAlignment: CrossAxisAlignment.start,
                         children: [
                           Row(
                             children: [
                               const Icon(Icons.star, size: 10),
                               const SizedBox(width: 4),
-                              Text(item.rating.toStringAsFixed(1), style: labelTextStyle),
+                              Text(
+                                item.rating.toStringAsFixed(1),
+                                style: itemCardRatingStyle,
+                              ),
                             ],
                           ),
-                          Text('\$${item.price.toStringAsFixed(2)}', style: labelTextStyle),
+                          Text(
+                            '\$${item.price.toStringAsFixed(1)}',
+                            style: itemCardPriceStyle,
+                          ),
                         ],
                       ),
                     ],

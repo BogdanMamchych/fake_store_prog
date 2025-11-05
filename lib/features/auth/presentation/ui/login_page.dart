@@ -28,15 +28,22 @@ class _LoginPageState extends State<LoginPage> {
   }
 
   void _onLoginPressed() {
-    if (!(_formKey.currentState?.validate() ?? false)) return;
+    debugPrint('Login button pressed: email=${_emailController.text}');
+    if (!(_formKey.currentState?.validate() ?? false)) {
+      debugPrint('Form validation failed');
+      return;
+    }
 
     final username = _emailController.text.trim();
-    final password = _passwordController.text;
+    final password = _password_controller_text();
 
+    debugPrint('Dispatching LoginRequested for $username');
     context.read<AuthBloc>().add(
-      LoginRequested(username: username, password: password),
-    );
+          LoginRequested(username: username, password: password),
+        );
   }
+
+  String _password_controller_text() => _passwordController.text;
 
   @override
   Widget build(BuildContext context) {
@@ -55,12 +62,11 @@ class _LoginPageState extends State<LoginPage> {
 
           context.go('/');
         } else if (state is AuthError) {
-          ScaffoldMessenger.of(
-            context,
-          ).showSnackBar(SnackBar(content: Text(state.message)));
+          ScaffoldMessenger.of(context).showSnackBar(
+            SnackBar(content: Text(state.message)),
+          );
         }
       },
-
       child: Scaffold(
         body: SafeArea(
           child: SingleChildScrollView(
@@ -123,14 +129,11 @@ class _LoginPageState extends State<LoginPage> {
                             padding: EdgeInsets.zero,
                             constraints: const BoxConstraints(),
                             icon: Icon(
-                              _obscure
-                                  ? Icons.visibility_off
-                                  : Icons.visibility,
+                              _obscure ? Icons.visibility_off : Icons.visibility,
                               size: 22,
                               color: const Color(0xFF6A707C),
                             ),
-                            onPressed: () =>
-                                setState(() => _obscure = !_obscure),
+                            onPressed: () => setState(() => _obscure = !_obscure),
                           ),
                           validator: (v) {
                             if (v == null || v.isEmpty) {

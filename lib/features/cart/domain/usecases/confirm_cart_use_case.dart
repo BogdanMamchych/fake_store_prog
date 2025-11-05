@@ -24,7 +24,7 @@ class ConfirmCartUseCase {
       id: 0,
       userId: user.id,
       date: DateTime.now(),
-      products: cartItems,
+      items: cartItems,
     );
 
     Map<String, dynamic> cartData = cart.toJson();

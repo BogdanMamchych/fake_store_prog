@@ -1,12 +1,11 @@
 import 'dart:async';
 
-import 'package:fake_store_prog/core/widgets/bottom_navigation_bar.dart';
+import 'package:fake_store_prog/core/widgets/bottom_nav_bar.dart';
 import 'package:fake_store_prog/features/item_list/presentation/bloc/item_list_bloc.dart';
 import 'package:fake_store_prog/features/item_list/presentation/bloc/item_list_event.dart';
 import 'package:fake_store_prog/features/item_list/presentation/bloc/item_list_state.dart';
 import 'package:fake_store_prog/core/widgets/header.dart';
-import 'package:fake_store_prog/features/item_list/widgets/product_card.dart';
-import 'package:fake_store_prog/core/styles/text_styles.dart';
+import 'package:fake_store_prog/features/item_list/widgets/item_card.dart';
 import 'package:flutter/material.dart' hide BottomNavigationBar;
 import 'package:flutter_bloc/flutter_bloc.dart';
 
@@ -51,7 +50,6 @@ class _HomePageState extends State<HomePage> {
 
   Future<void> _onRefresh() async {
     context.read<ItemListBloc>().add(FetchItemsRequested(refresh: true));
-    // Optional: wait until first page loaded or timeout
     final completer = Completer<void>();
     final sub = context.read<ItemListBloc>().stream.listen((s) {
       if (s is OpenItemsListSuccess || s is FetchItemsError) {
@@ -84,14 +82,32 @@ class _HomePageState extends State<HomePage> {
 
                 return Column(
                   children: [
-                    SizedBox(
-                      height: 148,
-                      width: double.infinity,
-                      child: Padding(
-                        padding: const EdgeInsets.symmetric(horizontal: 16.0),
-                        child: Header(headerText: 'Welcome, ', username: username),
+                    Header(
+                      headerText: 'Welcome,',
+                      username: username,
+                    ),
+
+                    Padding(
+                      padding: const EdgeInsets.symmetric(horizontal: 24.0),
+                      child: SizedBox(
+                        height: 35,
+                        width: 327,
+                        child: const Align(
+                          alignment: Alignment.centerLeft,
+                          child: Text(
+                            'Fake Store',
+                            style: TextStyle(
+                              fontFamily: 'Urbanist',
+                              fontWeight: FontWeight.w600,
+                              fontSize: 28,
+                              height: 1.25,
+                              color: Color(0xFF252425),
+                            ),
+                          ),
+                        ),
                       ),
                     ),
+
                     Expanded(
                       child: RefreshIndicator(
                         onRefresh: _onRefresh,
@@ -102,13 +118,19 @@ class _HomePageState extends State<HomePage> {
                           separatorBuilder: (_, __) => const SizedBox(height: 12),
                           itemBuilder: (context, index) {
                             if (index >= items.length) {
-                              // bottom loading indicator
                               return const Padding(
                                 padding: EdgeInsets.symmetric(vertical: 16.0),
-                                child: Center(child: SizedBox(width: 24, height: 24, child: CircularProgressIndicator())),
+                                child: Center(
+                                  child: SizedBox(width: 24, height: 24, child: CircularProgressIndicator()),
+                                ),
                               );
                             }
-                            return ItemCard(item: items[index]);
+                            return Center(
+                              child: SizedBox(
+                                width: 342,
+                                child: ItemCard(item: items[index]),
+                              ),
+                            );
                           },
                         ),
                       ),
@@ -116,7 +138,7 @@ class _HomePageState extends State<HomePage> {
                   ],
                 );
               } else if (state is FetchItemsError) {
-                return Center(child: Text('Error: ${state.message}', style: mainTextStyle));
+                return Center(child: Text('Error: ${state.message}'));
               }
               return const SizedBox.shrink();
             },
