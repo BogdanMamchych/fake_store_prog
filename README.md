@@ -23,10 +23,6 @@ The app supports authentication, browsing products, viewing product details, man
   * [Checkout (example)](#checkout-example)
 * [Project structure](#project-structure)
 * [Notes on architecture](#notes-on-architecture)
-* [Testing](#testing)
-* [Contributing](#contributing)
-* [License](#license)
-* [Contact / Author](#contact--author)
 
 ---
 
