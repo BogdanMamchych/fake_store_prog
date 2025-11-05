@@ -31,19 +31,6 @@ class CartPage extends StatelessWidget {
                     children: [
                       Text('Cart', style: headerTextStyle),
                       const Spacer(),
-                      Container(
-                        width: 32,
-                        height: 32,
-                        decoration: BoxDecoration(
-                          color: const Color(0xFFC4C4C4),
-                          borderRadius: BorderRadius.circular(8),
-                        ),
-                        child: const Icon(
-                          Icons.person,
-                          size: 18,
-                          color: Colors.white,
-                        ),
-                      ),
                     ],
                   ),
                 ),
