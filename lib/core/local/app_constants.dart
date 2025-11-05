@@ -1,3 +1,3 @@
 class AppConstants {
-  static const int itemsPerPage = 20;
+  static const int itemsPerPage = 5;
 }
